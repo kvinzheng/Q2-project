@@ -120,6 +120,7 @@ we are using github and clubhouse to work together.
   GET/hotel ------------- [{id:1, name:Hilton, city_name: France, street_name: string, date: string, user_id: 12}, {}, {}]
 
 
+
   * GET /users  ----------   [{id: 1, hashed_password: xxxxxx, first_name, last_name:, user_name, destination_city, departure_date, arrival_date, budget}, {}, {} ,{}] \
   POST /users --------- {id: 1, hashed_password: xxxxxx, first_name, last_name:, user_name, destination_city, departure_date, arrival_date, budget}\
   Get /users/:user_id -------------- {id: 1, hashed_password: xxxxxx, first_name, last_name:, user_name, destination_city, departure_date, arrival_date, budget} \
