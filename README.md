@@ -114,30 +114,36 @@ we are using github and clubhouse to work together.
 *  NOTE: User need to enter the destination city and so we decide to use city column to connect flight table, restaurant table, and hotel table.
 
  Here are the ROUTE: \
-1.
-  GET /flight -------- [{id: 1, airline: United AirLine, flight_number: 2000,       destination_city: France, departure_city: San Francisco, arrival_date: 3/30/2017, cost:1200, user_id: 12}, {},{},..... }          
 
-  GET/restaurant ------- [{id: 1, name: Soma Eat, city_name: France Cost: 30, user_id: 12}, {}, {},...]
-
+  * GET /flight -------- [{id: 1, airline: United AirLine, flight_number: 2000,       destination_city: France, departure_city: San Francisco, arrival_date: 3/30/2017, cost:1200, user_id: 12}, {},{},..... }  \        
+  GET/restaurant ------- [{id: 1, name: Soma Eat, city_name: France Cost: 30, user_id: 12}, {}, {},...] \
   GET/hotel ------------- [{id:1, name:Hilton, city_name: France, street_name: string, date: string, user_id: 12}, {}, {}]
 
-2.
-  GET /users  ----------   [{id: 1, hashed_password: xxxxxx, first_name, last_name:, user_name, destination_city, departure_date, arrival_date, budget}, {}, {} ,{}] \
-  Get /users/:user_id -------------- {id: 1, hashed_password: xxxxxx, first_name, last_name:, user_name, destination_city, departure_date, arrival_date, budget} \
+
+
+  * GET /users  ----------   [{id: 1, hashed_password: xxxxxx, first_name, last_name:, user_name, destination_city, departure_date, arrival_date, budget}, {}, {} ,{}] \
   POST /users --------- {id: 1, hashed_password: xxxxxx, first_name, last_name:, user_name, destination_city, departure_date, arrival_date, budget}\
-  GET /user{user_id}/package  --------  [{id: 1, first_name: Kevin, last_name: zheng, flight_id: 2000, restaurant_id: 200, hotel_id:400}]
+  Get /users/:user_id -------------- {id: 1, hashed_password: xxxxxx, first_name, last_name:, user_name, destination_city, departure_date, arrival_date, budget} \
+  POST /users/:user_id -------------- {id: 1, hashed_password: xxxxxx, first_name, last_name:, user_name, destination_city, departure_date, arrival_date, budget} \
+  PATCH /users/:user_id -------------- {id: 1, hashed_password: xxxxxx, first_name, last_name:, user_name, destination_city, departure_date, arrival_date, budget} \
+  DELETE /users/:user_id -------------- {id: 1, hashed_password: xxxxxx, first_name, last_name:, user_name, destination_city, departure_date, arrival_date, budget} \
 
-3.
-  GET /flight/:flight_id ------ {id: 1, airline: United AirLine, flight_number: 2000,       destination_city: France, departure_city: San Francisco, arrival_date: 3/30/2017, cost:1200, user_id: 12} \
 
-  GET /hotel/:hotel_id ------------- {id: 1, name: Hilton, city_name: San_Francisco Cost: 30, user_id: 12} \
-  GET /restaurant/:restaurant_id ---------- {id: 1, name: Soma_Eat, city_name: San_Francisco, street_name: 2nd_Street, cost:30, user_id: 1 } \
+  * GET /user: user_id/package  --------  [{id: 1, first_name: Kevin, last_name: zheng, flight_id: 2000, restaurant_id: 200, hotel_id:400}]\
+  POST /user: user_id /package  --------  [{id: 1, first_name: Kevin, last_name: zheng, flight_id: 2000, restaurant_id: 200, hotel_id:400}]\
+  UPDATE /user/:user_id/package  --------  [{id: 1, first_name: Kevin, last_name: zheng, flight_id: 2000, restaurant_id: 200, hotel_id:400}]\
+  DELETE /user/:user_id/package  --------  [{id: 1, first_name: Kevin, last_name: zheng, flight_id: 2000, restaurant_id: 200, hotel_id:400}]
 
-* GET /user/{user_id}/mypackages/   --------- [{id: 1, user_id: 1, cost: $500, flight_id: 1, hotel_id: 1, restaurant_id: 1, departure_date: 04/05/2017, arrival_date: 4/05/2017}, {...}]
-* GET /user/{user_id}/mypackages/{package_id}   -------- {id: 1, user_id:1, cost: $500, flight_id: 1, hotel_id:1, restaurant_id: 2, departure_date: 03/04/2017, arrival_date: 04/05/2017}
-* POST /user/{user_id}/mypackages/{package_id}  -------- {id: 3, user_id:2, cost: $400, flight_id: 1, hotel_id:1, restaurant_id: 2, departure_date: 03/04/2017, arrival_date: 04/05/2017}
-* PUT /user/{user_id}/mypackages/{package_id}   -------- { flight_id: 4}
-* DELETE /user/{user_id}/mypackages/{package_id} ------- {id: 2, user_id:1, cost: $500, flight_id: 1, hotel_id:1, restaurant_id: 2, departure_date: 03/04/2017, arrival_date: 04/05/2017}
+
+* GET /flight/:flight_id ------ {id: 1, airline: United AirLine, flight_number: 2000,       destination_city: France, departure_city: San Francisco, arrival_date: 3/30/2017, cost:1200, user_id: 12} \
+GET /hotel/:hotel_id ------------- {id: 1, name: Hilton, city_name: San_Francisco Cost: 30, user_id: 12} \
+GET /restaurant/:restaurant_id ---------- {id: 1, name: Soma_Eat, city_name: San_Francisco, street_name: 2nd_Street, cost:30, user_id: 1 }
+
+* GET /user/:user_id/mypackages/  --------- [{id: 1, budget: 500, flight_id: 1, restaurant_id: 1, hotel_id: 1,  user_id: 1,  departure_date: 04/05/2017, arrival_date: 4/05/2017}, {...}] \
+ GET /user/:user_id/mypackages/:package_id -------- {id: 1, budget: 500, flight_id: 1, restaurant_id: 1, hotel_id: 1,  user_id: 1,  departure_date: 04/05/2017, arrival_date: 4/05/2017} \
+POST /user/:user_id/mypackages/:package_id------------- {id: 1, budget: 500, flight_id: 1, restaurant_id: 1, hotel_id: 1,  user_id: 1,  departure_date: 04/05/2017, arrival_date: 4/05/2017}\
+ PUT /user/:user_id/mypackages/:package_id ----- {id: 1, budget: 500, flight_id: 1, restaurant_id: 1, hotel_id: 1,  user_id: 1,  departure_date: 04/05/2017, arrival_date: 4/05/2017}\
+DELETE /user/:user_id/mypackages/:package_id: -------  {id: 1, budget: 500, flight_id: 1, restaurant_id: 1, hotel_id: 1,  user_id: 1,  departure_date: 04/05/2017, arrival_date: 4/05/2017}
 
 note: we are creating our data base manually due to the API restriction.
 
