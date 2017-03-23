@@ -7,14 +7,15 @@ function GetAllFlight(req, res){
   return knex('flights')
     .select('*')
       .then((result) => {
-        if(result){
+        // if(result){
+        console.log(result);
           res.send(result);
-        }else{
-          res.status(400);
-          res.send('this is not a valid input')
-          throw new Error("this end point doesn't exist")
-        }
-        console.log('what is result', result);
+        // }else{
+          // res.status(400);
+          // res.send('this is not a valid input')
+        //   throw new Error("this end point doesn't exist")
+        // }
+        // console.log('what is result', result);
       })
       .catch((err) =>{
         console.error(err);

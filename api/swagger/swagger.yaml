@@ -37,7 +37,7 @@ paths:
           description: Error
           schema:
             $ref: "#/definitions/ErrorResponse"
-            
+
   /flight/{id}:
     x-swagger-router-controller: flight
     get:
@@ -61,7 +61,7 @@ paths:
           description: Error
           schema:
             $ref: "#/definitions/ErrorResponse"
-            
+
   /restaurant:
     x-swagger-router-controller: restaurant
     get:
@@ -104,7 +104,7 @@ paths:
           description: Error
           schema:
             $ref: "#/definitions/ErrorResponse"
-      
+
   /hotel:
     x-swagger-router-controller: hotel
     get:
@@ -181,8 +181,8 @@ paths:
           description: Error
           schema:
             $ref: "#/definitions/ErrorResponse"
-    
-   
+
+
   /users/{id}:
     x-swagger-router-controller: users
     get:
@@ -234,8 +234,8 @@ paths:
           description: Error
           schema:
             $ref: "#/definitions/ErrorResponse"
-    delete: 
-      description: deleting a specific folder 
+    delete:
+      description: deleting a specific folder
       operationId: DeleteUser
       produces:
         - application/json
@@ -255,11 +255,11 @@ paths:
           description: Error
           schema:
             $ref: "#/definitions/ErrorResponse"
-      
+
   /users/{id}/packages:
     x-swagger-router-controller: packages
-    
-    get: 
+
+    get:
       description: getting all the packages from the user
       operationId: GetAllPackagePerUser
       produces:
@@ -279,7 +279,7 @@ paths:
           description: Error
           schema:
             $ref: "#/definitions/ErrorResponse"
-    
+
     post:
       description: adding new a package for the user
       operationId: PostUniquePackagePerUser
@@ -289,13 +289,13 @@ paths:
         - name: id
           type: integer
           in: path
-          required: true 
+          required: true
           description: adding an package info into the user_package table
         - name: body
           in: body
           description: adding an package to that user
-          required: true 
-          schema: 
+          required: true
+          schema:
             $ref: "#/definitions/AddNewPackage"
       responses:
         "200":
@@ -306,8 +306,8 @@ paths:
           description: Error
           schema:
             $ref: "#/definitions/ErrorResponse"
-            
-  /users/{user_id}/packages/{package_id}:   
+
+  /users/{user_id}/packages/{package_id}:
     x-swagger-router-controller: packages
     get:
       # define the parameters
@@ -328,7 +328,7 @@ paths:
           format: int64
           in: path
           required: true
-          
+
       responses:
         "200":
           description: Success
@@ -338,7 +338,7 @@ paths:
           description: Error
           schema:
             $ref: "#/definitions/ErrorResponse"
-            
+
     put:
       # define the parameters
       description: updating a new package
@@ -402,7 +402,7 @@ paths:
           description: Error
           schema:
             $ref: "#/definitions/ErrorResponse"
-        
+
   /swagger:
     x-swagger-pipe: swagger_raw
 # complex objects have schema definitions
@@ -432,7 +432,7 @@ definitions:
         type: string
       departure_date:
         type: string
-      
+
   GetAllPackages:
     properties:
       # The array of packages
@@ -441,11 +441,11 @@ definitions:
         items:
           type: object
           properties:
-            id: 
+            id:
               type: integer
             budget:
               type: string
-            flight_id: 
+            flight_id:
               type: string
             restaurant_id:
               type: string
@@ -453,7 +453,7 @@ definitions:
               type: string
             user_id:
               type: string
-              
+
   AddNewPackage:
     required:
       - id
@@ -463,7 +463,7 @@ definitions:
       - hotel_id
       - user_id
     properties:
-      id: 
+      id:
         type: integer
       budget:
         type: integer
@@ -475,7 +475,7 @@ definitions:
         type: string
       user_id:
         type: string
-              
+
   UpdateNewPackage:
     required:
       - id
@@ -485,7 +485,7 @@ definitions:
       - hotel_id
       - user_id
     properties:
-      id: 
+      id:
         type: integer
       budget:
         type: integer
@@ -497,7 +497,7 @@ definitions:
         type: integer
       user_id:
         type: integer
-        
+
   GeneralPackage:
     type: object
     required:
@@ -508,7 +508,7 @@ definitions:
       - hotel_id
       - user_id
     properties:
-      id: 
+      id:
         type: integer
         description: package id
       budget:
@@ -591,17 +591,17 @@ definitions:
       - last_name
       - username
     properties:
-      id: 
+      id:
         type: integer
       password:
         type: string
-      first_name: 
+      first_name:
         type: string
       last_name:
         type: string
       username:
-        type: string 
-        
+        type: string
+
   updateUser:
     type: object
     required:
@@ -610,15 +610,15 @@ definitions:
       - last_name
       - username
     properties:
-      id: 
+      id:
         type: integer
-      first_name: 
+      first_name:
         type: string
       last_name:
         type: string
       username:
-        type: string 
-      
+        type: string
+
   specificUser:
     type: object
     required:

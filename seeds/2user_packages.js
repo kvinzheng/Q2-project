@@ -9,6 +9,26 @@ exports.seed = function(knex, Promise) {
           id: 1,
           budget: 700,
           user_id:1
+        },
+        {
+          id: 2,
+          budget: 1850,
+          user_id:2
+        },
+        {
+          id: 3,
+          budget: 1500,
+          user_id:2
+        },
+        {
+          id: 4,
+          budget: 1000,
+          user_id:3
+        },
+        {
+          id: 5,
+          budget: 2000,
+          user_id:  1
         }
       ]);
     })

@@ -25,6 +25,6 @@
   },
   "scripts": {
     "start": "node app.js",
-    "test": "mocha -u tdd"
+    "test": "node_modules/mocha/bin/mocha"
   }
 }

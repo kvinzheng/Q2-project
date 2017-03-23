@@ -9,6 +9,26 @@ exports.seed = function(knex, Promise) {
           id: 1,
           flight_id: 1,
           package_id: 1
+        },
+        {
+          id: 2,
+          flight_id: 2,
+          package_id: 2
+        },
+        {
+          id: 3,
+          flight_id:3,
+          package_id: 3
+        },
+        {
+          id: 4,
+          flight_id:4,
+          package_id:4
+        },
+        {
+          id: 5,
+          flight_id: 5,
+          package_id:5
         }
       ]);
     })
