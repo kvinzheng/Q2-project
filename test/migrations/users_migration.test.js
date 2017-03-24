@@ -4,7 +4,7 @@ process.env.NODE_ENV = 'test';
 
 const assert = require('chai').assert;
 const { suite, test } = require('mocha');
-const knex = require('../knex');
+const knex = require('../../knex');
 
 suite('users migrations', () => {
   before((done) => {

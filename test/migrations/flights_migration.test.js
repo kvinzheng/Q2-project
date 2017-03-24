@@ -4,7 +4,7 @@ process.env.NODE_ENV = 'test';
 
 const assert = require('chai').assert;
 const { suite, test } = require('mocha');
-const knex = require('../knex');
+const knex = require('../../knex');
 
 suite('flights migrations', () => {
   before((done) => {
@@ -50,15 +50,15 @@ suite('flights migrations', () => {
           },
 
           departure_date: {
-            type: 'date',
-            maxLength: null,
+            type: 'character varying',
+            maxLength: 255,
             nullable: false,
             defaultValue: null
           },
 
           arrival_date: {
-            type: 'date',
-            maxLength: null,
+            type: 'character varying',
+            maxLength: 255,
             nullable: false,
             defaultValue: null
           },

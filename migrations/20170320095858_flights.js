@@ -5,8 +5,8 @@ exports.up = function(knex, Promise) {
     table.string('airline').notNullable().defaultTo('');
     table.string('departure_city').notNullable().defaultTo('');
     table.string('destination_city').notNullable().defaultTo('');
-    table.date('departure_date').notNullable();
-    table.date('arrival_date').notNullable();
+    table.string('departure_date').notNullable();
+    table.string('arrival_date').notNullable();
     table.float('cost').notNullable();
   });
 };

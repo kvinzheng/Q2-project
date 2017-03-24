@@ -8,20 +8,28 @@
   "license": "",
   "main": "app.js",
   "dependencies": {
+    "@types/swagger-express-mw": "^0.7.0",
     "bcrypt": "^1.0.2",
-    "express": "^4.12.3",
+    "express": "^4.15.2",
+    "knex": "^0.12.8",
+    "pg": "^6.1.5",
     "swagger-express-mw": "^0.1.0"
   },
   "devDependencies": {
     "bcrypt": "^1.0.2",
+    "bcrypt-as-promised": "^1.1.0",
     "chai": "^3.5.0",
     "chai-date-string": "^0.1.0",
+    "cookie-parser": "^1.4.3",
+    "jsonwebtoken": "^7.3.0",
     "mocha": "^3.2.0",
-    "should": "^7.1.0",
+    "module-header": "^0.5.0",
+    "pg": "^6.1.5",
+    "should": "^7.1.1",
     "supertest": "^1.2.0"
   },
   "scripts": {
     "start": "node app.js",
-    "test": "swagger project test"
+    "test": "node_modules/mocha/bin/mocha"
   }
 }
