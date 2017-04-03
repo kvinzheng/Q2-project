@@ -8,6 +8,7 @@ var SwaggerExpress = require('swagger-express-mw');
 const express = require('express');
 const app = express();
 const cors = require('cors');
+const path = require('path')
 module.exports = app; // for testing
 app.use(express.static(path.join('public')));
 app.use(cors());
