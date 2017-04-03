@@ -77,7 +77,7 @@ window.onload = function() {
     dom_id: '#swagger-ui',
     presets: [
       SwaggerUIBundle.presets.apis,
-      SwaggerUIStandalonePreset
+      Array.isArray(SwaggerUIStandalonePreset) ? SwaggerUIStandalonePreset : SwaggerUIStandalonePreset.default
     ],
     plugins: [
       SwaggerUIBundle.plugins.DownloadUrl
