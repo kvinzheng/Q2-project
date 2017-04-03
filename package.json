@@ -34,6 +34,7 @@
     "yelp": "^1.0.2"
   },
   "scripts": {
+    "heroku-postbuild": "knex migrate:latest",
     "start": "node app.js",
     "test": "node_modules/mocha/bin/mocha"
   }
