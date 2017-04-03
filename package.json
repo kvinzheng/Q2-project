@@ -17,7 +17,10 @@
     "pg": "^6.1.5",
     "swagger-express-mw": "^0.1.0",
     "yelp": "^1.0.2",
-    "dotenv": "^4.0.0"
+    "dotenv": "^4.0.0",
+    "node-fetch": "^1.6.3",
+    "cookie-parser": "^1.4.3",
+    "should": "^7.1.1"
   },
   "devDependencies": {
     "bcrypt": "^1.0.2",
