@@ -92,13 +92,13 @@ paths:
           description: the city that the restaurant locates at
           required: true
           type: string
-
+          
         - in: query
           name: rating
           description: the ratinng that the users want it to be
           required: true
           type: string
-
+          
       responses:
         "200":
           description: Success

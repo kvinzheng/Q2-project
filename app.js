@@ -6,8 +6,12 @@ if (process.env.NODE_ENV!== 'production'){
 // let verify = require('./api/controllers/validation.js')
 var SwaggerExpress = require('swagger-express-mw');
 var app = require('express')();
-
+const express = require('express');
+const app = express();
+const cors = require('cors');
 module.exports = app; // for testing
+app.use(express.static(path.join('public')));
+app.use(cors());
 
 var config = {
   appRoot: __dirname // required config
