@@ -24,6 +24,10 @@ exports.seed = function(knex, Promise) {
           id: 5,
           restaurant_id: 5,
           package_id: 5
+        }, {
+          id: 6,
+          restaurant_id: 6,
+          package_id: 6
         }
       ])])
   }).then(() => {

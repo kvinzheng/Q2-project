@@ -39,6 +39,27 @@ exports.seed = function(knex, Promise) {
           street_name: '127 Ellis Street',
           cost: 200.00,
           date: '2017/06/10'
+        }, {
+          id: 6,
+          name: 'The Metro Hotel',
+          city_name: 'San Francisco',
+          street_name: '319 Divisadero St',
+          cost: 200.00,
+          date: '2017/06/10'
+        }, {
+          id: 7,
+          name: 'The Inn San Francisco',
+          city_name: 'San Francisco',
+          street_name: '943 S Van Ness Ave',
+          cost: 200.00,
+          date: '2017/06/10'
+        }, {
+          id: 8,
+          name: 'Hayes Valley Inn',
+          city_name: 'San Francisco',
+          street_name: '417 Gough St',
+          cost: 200.00,
+          date: '2017/06/10'
         }
       ])])
   }).then(() => {

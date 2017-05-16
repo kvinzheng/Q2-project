@@ -23,7 +23,7 @@ function GetAllPackagePerUser(req, res, err) {
     .join('restaurants', 'restaurants.id', 'restaurant_package.restaurant_id')
     .select('user_packages.id as package_id', 'users.id as user_id', 'airline', 'flights.id as flight_id', 'flights.cost as flight_cost', 'restaurants.name as restaurant_name', 'restaurants.id as restaurant_id',
       'restaurants.view_count as restaurants_review', 'hotels.name as hotels_name', 'hotels.id as hotels_id', 'hotels.cost as hotels_cost')
-    .where('user_packages.id', req.swagger.params.id.value)
+    // .where('user_packages.id', req.swagger.params.id.value)
     .returning('*')
     .then((result) => {
       if (result) {
@@ -70,11 +70,13 @@ function PostUniquePackagePerUser(req, res) {
       return carrierObj.CarrierId === carrierId
     })
     return returnData;
-  }).then((response) => {
+  })
+  .then((response) => {
     return knex('user_packages').insert({
       budget: airfare,
       user_id
     }, 'id')
+    //insert into flights table
     .then((user_package_id) => {
       package_id = user_package_id;
       return knex('flights').insert({
@@ -85,23 +87,33 @@ function PostUniquePackagePerUser(req, res) {
         arrival_date: date,
         cost: flight_cost
       }, 'id')
+      //insert into flight package
       .then((flight_id) => {
         return knex('flight_package').insert({
           flight_id: flight_id[0],
           package_id: package_id[0]
-        }, 'package_id').then(() => {
-          yelp.search({term: 'food', location: destination_city, limit: 1, rating: 4}).then((response) => {
+        }, 'package_id')
+        //insert into restaurants table
+        .then(() => {
+          yelp.search({
+            term: 'food', location: destination_city, limit: 1, rating: 4
+          })
+          .then((response) => {
             let restaurant = response.businesses[0]
             return knex('restaurants').insert({
               name: restaurant.name,
               street_name: restaurant.location.address[0],
               city_name: restaurant.location.city,
               view_count: restaurant.review_count
-            }, 'id').then((restaurant_id) => {
+            }, 'id')
+            //insert into the restaurant_package
+            .then((restaurant_id) => {
               return knex('restaurant_package').insert({
                 restaurant_id: restaurant_id[0],
                 package_id: package_id[0]
-              }, 'package_id').then(() => {
+              }, 'package_id')
+              //insert into the hotel table
+              .then(() => {
                 return knex('hotels').insert({
                   name: hotelName,
                   city_name: hotelCity,
@@ -109,9 +121,14 @@ function PostUniquePackagePerUser(req, res) {
                   cost: hotelCost,
                   date: date
                 }, 'id')
-              }).then((hotel_id) => {
+              })
+              //insert into the hotel package table
+              .then((hotel_id) => {
                 hotelId = hotel_id[0];
-                return knex('hotel_package').insert({hotel_id: hotelId, package_id: package_id[0]}).then(() => {
+                return knex('hotel_package')
+                .insert({hotel_id: hotelId, package_id: package_id[0]})
+                //finally return the response object
+                .then(() => {
                   let responseObj = {
                     user_id,
                     package_id: package_id[0],

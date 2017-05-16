@@ -23,7 +23,11 @@ exports.seed = function(knex, Promise) {
         }, {
           id: 5,
           budget: 2000,
-          user_id: 1
+          user_id: 5
+        },{
+          id: 6,
+          budget: 2000,
+          user_id: 6
         }
       ])])
   }).then(() => {
