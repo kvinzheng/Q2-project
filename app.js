@@ -1,23 +1,25 @@
 'use strict';
-// let app = express();
-if (process.env.NODE_ENV!== 'production'){
+
+if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config();
 }
-let verify = require('./api/controllers/validation.js')
+
 var SwaggerExpress = require('swagger-express-mw');
 const express = require('express');
 const app = express();
-const cors = require('cors');
+const bodyParser = require('body-parser');
 const path = require('path')
-module.exports = app; // for testing
+const cors = require('cors');
+
 app.use(express.static(path.join('public')));
+app.use(bodyParser.json());
 app.use(cors());
+const verify = require('./api/controllers/validation.js');
 
 var config = {
   appRoot: __dirname // required config
 };
 
-//middleware goes here
 app.use('/flight', verify.middlewareVerify);
 
 SwaggerExpress.create(config, function(err, swaggerExpress) {
@@ -35,3 +37,5 @@ SwaggerExpress.create(config, function(err, swaggerExpress) {
     console.log('try this:\ncurl http://127.0.0.1:' + port + '/hello?name=Scott');
   }
 });
+
+module.exports = app; // for testing
