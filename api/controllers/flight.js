@@ -6,6 +6,7 @@ const bcrypt = require('bcrypt');
 const request = require('request');
 const fetch = require('node-fetch');
 
+//Get All the flights with input city and date
 function GetAllFlight(req, res) {
   //making an AJAX request to outside third party API called skyscanner and receive real time flight data
   fetch("http://partners.api.skyscanner.net/apiservices/browseroutes/v1.0/US/USD/en-US/us/anywhere/anytime/anytime?apikey=" + process.env.FLIGHTAPI).then((response) => {
@@ -56,6 +57,7 @@ function GetAllFlight(req, res) {
   })
 }
 
+//get a specific flight data with the specific flight id
 function GetFlight(req, res) {
   //making an AJAX request to outside third party API called skyscanner and receive real time flight data
   fetch("http://partners.api.skyscanner.net/apiservices/browseroutes/v1.0/US/USD/en-US/us/anywhere/anytime/anytime?apikey=" + process.env.FLIGHTAPI).then((response) => {
@@ -103,8 +105,7 @@ function GetFlight(req, res) {
     res.status(200).json(newArray[0]);
   }).catch((err) => {
     console.error(err);
-  })
-
+  });
 }
 
 module.exports = {

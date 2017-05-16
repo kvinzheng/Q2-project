@@ -58,7 +58,7 @@ paths:
   /flight/{id}:
     x-swagger-router-controller: flight
     get:
-      description: returns flight information that was added to the database
+      description: Search for specific flight, its airline name, cost, departure city, departure date
       operationId: GetFlight
       produces:
         - application/json
@@ -82,7 +82,7 @@ paths:
   /restaurant:
     x-swagger-router-controller: restaurant
     get:
-      description: get an array of all added restaurants
+      description: Using Yelp npm package to search for an array of restaurant with inputs of departure city and yelp rating. Restaurants are sorted in the order of view count from largest to smallest
       operationId: GetAllRestaurant
       produces:
         - application/json
