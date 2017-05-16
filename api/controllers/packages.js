@@ -45,35 +45,38 @@ function PostUniquePackagePerUser(req, res) {
   let current_city = req.body.departure_airport_name;
   let destination_city = req.body.destination_airport_name;
   let date = req.body.departure_date;
-  let budget = req.body.budget;
+  let airfare = req.body.airfare;
   let flight_cost;
   let airline;
   let carrierId;
+  let hotelName = req.body.hotel_name;
+  let hotelCity = req.body.city_name;
+  let hotelCost = 200;
+  let hotelStreetName = req.body.street_name;
   let user_id = req.swagger.params.id.value;
   let package_id;
+  let hotelId;
 
-  fetch(`http://partners.api.skyscanner.net/apiservices/browsequotes/v1.0/US/USD/en-US/${current_city}/${destination_city}/${date}/${date}?apikey=${process.env.FLIGHTAPI}`)
-  .then((response) => {
+  fetch(`http://partners.api.skyscanner.net/apiservices/browsequotes/v1.0/US/USD/en-US/${current_city}/${destination_city}/${date}/${date}?apikey=${process.env.FLIGHTAPI}`).then((response) => {
     return response.json();
-  })
-  .then((returnData) => {
+  }).then((returnData) => {
     flight_cost = returnData.Quotes[0].MinPrice;
-    if (flight_cost > budget) {
-      res.status(401).send("sorry. budget is too low");
+    //check if the price is too low
+    if (flight_cost > airfare) {
+      res.status(401).send("sorry. airfare is too low");
     }
     carrierId = returnData.Quotes[0].OutboundLeg.CarrierIds[0];
     airline = returnData.Carriers.find((carrierObj) => {
       return carrierObj.CarrierId === carrierId
     })
     return returnData;
-  })
-  .then((response) => {
+  }).then((response) => {
     return knex('user_packages').insert({
-      budget: budget,
+      budget: airfare,
       user_id
     }, 'id')
-    .then((package_id) => {
-      package_id = package_id;
+    .then((user_package_id) => {
+      package_id = user_package_id;
       return knex('flights').insert({
         airline: airline.Name,
         departure_city: current_city,
@@ -86,26 +89,30 @@ function PostUniquePackagePerUser(req, res) {
         return knex('flight_package').insert({
           flight_id: flight_id[0],
           package_id: package_id[0]
-        }, 'package_id')
-        .then((package_id) => {
-          yelp.search({term: 'food', location: destination_city, limit: 1, rating: 4})
-          .then((response) => {
+        }, 'package_id').then(() => {
+          yelp.search({term: 'food', location: destination_city, limit: 1, rating: 4}).then((response) => {
             let restaurant = response.businesses[0]
             return knex('restaurants').insert({
               name: restaurant.name,
               street_name: restaurant.location.address[0],
               city_name: restaurant.location.city,
               view_count: restaurant.review_count
-            }, 'id')
-            .then((restaurant_id) => {
+            }, 'id').then((restaurant_id) => {
               return knex('restaurant_package').insert({
                 restaurant_id: restaurant_id[0],
                 package_id: package_id[0]
-              }, 'package_id')
-              .then((package_id) => {
-                return knex('hotel_package').insert({hotel_id: 4, package_id: package_id[0]})
-                .then((response) => {
-                  res.send({
+              }, 'package_id').then(() => {
+                return knex('hotels').insert({
+                  name: hotelName,
+                  city_name: hotelCity,
+                  street_name: 'N/A',
+                  cost: hotelCost,
+                  date: date
+                }, 'id')
+              }).then((hotel_id) => {
+                hotelId = hotel_id[0];
+                return knex('hotel_package').insert({hotel_id: hotelId, package_id: package_id[0]}).then(() => {
+                  let responseObj = {
                     user_id,
                     package_id: package_id[0],
                     airline: airline.Name,
@@ -114,9 +121,10 @@ function PostUniquePackagePerUser(req, res) {
                     restaurant_name: restaurant.name,
                     restaurant_id: restaurant_id[0],
                     hotels_name: 'Chateau Tivoli Bed & Breakfast Inn',
-                    hotels_id: 4,
-                    hotels_cost: 350
-                  });
+                    hotels_id: hotelId,
+                    hotels_cost: hotelCost
+                  }
+                  res.send(responseObj);
                 })
               })
             })
