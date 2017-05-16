@@ -2,7 +2,6 @@
 var util = require('util');
 const knex = require('../../knex.js');
 const Yelp = require('yelp');
-
 //loading all the restaurant in the current departure city and yelp rating as inputs
 function GetAllRestaurant(req, res) {
     // Request API access: http://www.yelp.com/developers/getting_started/api_access
@@ -13,6 +12,7 @@ function GetAllRestaurant(req, res) {
         token_secret: process.env.TOKEN_SECRET,
     });
     // See http://www.yelp.com/developers/documentation/v2/search_api
+    // console.log('did i hit here');
     yelp.search({
             term: 'food',
             location: req.query.departure_city,
@@ -20,6 +20,7 @@ function GetAllRestaurant(req, res) {
             rating: req.query.rating
         })
         .then(function(data) {
+          console.log('what is food now', data);
             let finalArray = [];
             data.businesses.forEach((ele) => {
                 let result = {};
@@ -33,9 +34,11 @@ function GetAllRestaurant(req, res) {
                 else{
                   result.view_count = 0;
                 }
+                // console.log('what is result', result);
                 finalArray.push(result);
             });
             finalArray.sort((a,b) =>{ return b.view_count - a.view_count });
+            console.log('what is finalArray here', finalArray);
             res.status(200).json(finalArray);
         })
         .catch(function(err) {
