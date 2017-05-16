@@ -5,7 +5,7 @@ For full documentation of the Travel Package API please visit:http://travel-pack
 Travel Package Manager is an api that allows users to store their preferred choices of hotels, flights and restaurants.
 
 Travel Package Manager is an api that help travelers store their favorite choices of hotels, flights and restaurants.
-All users can view their favorite choice of vacation package add a package to the database; search for specific hotel, restaurants and flight in the specific city; update the package or delete the package; Everyone can log in or create a basic account with Travel Package Manager. Registered users can save their favorite travel package, update their packages delete them as well.
+All users can view their own favorite choice of vacation package; add a package to the database; search for specific hotel, restaurants and flight in the specific city; update the package or delete the package; Everyone can log in or create an account with Travel Package Manager. Registered users can save their favorite travel package, update their packages or delete them as well.
 
 
 Travel Package Manager is an API built with Swagger framework which provide an very detail documentation of the routes but also does validations when taking inputs. Vacation Package Manager uses Node.js Express framework and Knex.js to connect with a PostgreSQL database to store users, flights, hotel, and restaurants data. user authentication and authorization is transmitted and decoded using JWT. Travel Package Manager also use Mocha testing framework, Chai Library and Super Test NPM package for testing.
@@ -14,7 +14,7 @@ Travel Package Manager is an API built with Swagger framework which provide an v
 1. Fork and clone repo.
 2. `npm install`
 3. Please register for
-4. Please register for [Yelp Oauth Tokens](`https://www.yelp.com/developers/v3/manage_app`) 
+4. Please register for [Yelp Oauth Tokens](`https://www.yelp.com/developers/v3/manage_app`)
 ```
 JWT_KEY=xxxxx
 OAUTH_CONSUMER_KEY= xxxxx
