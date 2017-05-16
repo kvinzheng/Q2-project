@@ -21,7 +21,7 @@ var config = {
   appRoot: __dirname // required config
 };
 
-app.use('/flight', verify.middlewareVerify);
+// app.use('/flight', verify.middlewareVerify);
 
 SwaggerExpress.create(config, function(err, swaggerExpress) {
   if (err) {

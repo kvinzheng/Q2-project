@@ -21,7 +21,7 @@ paths:
   /flight:
     x-swagger-router-controller: flight
     get:
-      description: get an array of all added flights, enter the city where you depart from, it will give u a lot of infomation where u can land
+      description: Get an array of all added flights, enter the city where you depart from, api provides airline, airline cost, departure_city, departure_date, destination_city, and its ticket cost
       #define the type of response for Success "200" and Error
       produces:
         - application/json
@@ -37,11 +37,11 @@ paths:
           description: enter the date in 'yyyy-mm-dd' format
           required: true
           type: string
-        - in: header
-          name: token
-          required: true
-          type: string
-          description: this is token
+        # - in: header
+        #   name: token
+        #   required: true
+        #   type: string
+        #   description: this is token
 
       responses:
         "200":
