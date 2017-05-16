@@ -14,8 +14,7 @@ Travel Package Manager is an API built with Swagger framework which provide an v
 1. Fork and clone repo.
 2. `npm install`
 3. Please register for
-4. Please register for [Yelp Oauth Tokens](`https://www.yelp.com/developers/v3/manage_app`) for the find a cheese store serach functionality.
-
+4. Please register for [Yelp Oauth Tokens](`https://www.yelp.com/developers/v3/manage_app`) 
 ```
 JWT_KEY=xxxxx
 OAUTH_CONSUMER_KEY= xxxxx
