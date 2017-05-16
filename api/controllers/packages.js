@@ -23,7 +23,7 @@ function GetAllPackagePerUser(req, res, err) {
     .join('restaurants', 'restaurants.id', 'restaurant_package.restaurant_id')
     .select('user_packages.id as package_id', 'users.id as user_id', 'airline', 'flights.id as flight_id', 'flights.cost as flight_cost', 'restaurants.name as restaurant_name', 'restaurants.id as restaurant_id',
       'restaurants.view_count as restaurants_review', 'hotels.name as hotels_name', 'hotels.id as hotels_id', 'hotels.cost as hotels_cost')
-    // .where('user_packages.id', req.swagger.params.id.value)
+    .where('user_packages.id', req.swagger.params.id.value)
     .returning('*')
     .then((result) => {
       if (result) {
