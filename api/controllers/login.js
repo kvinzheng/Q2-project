@@ -53,7 +53,7 @@ function userLogin(req, res) {
             }
         })
         .catch((error) => {
-        // if there is an error, then response will be 400 and bad email or password
+        // error response will be 400 and bad email or password
          return res.status(400).json('Bad email or password');
         })
 };
