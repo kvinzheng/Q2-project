@@ -1,8 +1,9 @@
 'use strict';
 var util = require('util');
-var knex = require('../../knex.js');
-var Yelp = require('yelp');
+const knex = require('../../knex.js');
+const Yelp = require('yelp');
 
+//loading all the restaurant in the current departure city and yelp rating as inputs
 function GetAllRestaurant(req, res) {
     // Request API access: http://www.yelp.com/developers/getting_started/api_access
     let yelp = new Yelp({
@@ -36,12 +37,10 @@ function GetAllRestaurant(req, res) {
             });
             finalArray.sort((a,b) =>{ return b.view_count - a.view_count });
             res.status(200).json(finalArray);
-            // console.log(finalArray);
         })
         .catch(function(err) {
             console.error(err);
         });
-
 };
 
 // function GetSpecificRestaurant(req, res) {

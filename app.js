@@ -1,5 +1,6 @@
 'use strict';
 
+//loading information from
 if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config();
 }
@@ -31,11 +32,13 @@ SwaggerExpress.create(config, function(err, swaggerExpress) {
   swaggerExpress.register(app);
 
   var port = process.env.PORT || 10010;
-  app.listen(port);
+  app.listen(port, () => {
+    console.log('listening on port ' + port);
+  });
 
-  if (swaggerExpress.runner.swagger.paths['/hello']) {
-    console.log('try this:\ncurl http://127.0.0.1:' + port + '/hello?name=Scott');
-  }
+  // if (swaggerExpress.runner.swagger.paths['/hello']) {
+  //   console.log('try this:\ncurl http://127.0.0.1:' + port + '/hello?name=Scott');
+  // }
 });
 
 module.exports = app; // for testing
