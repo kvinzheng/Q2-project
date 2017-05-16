@@ -1,35 +1,43 @@
 'use strict';
-
 process.env.NODE_ENV = 'test';
-
-const { suite, test } = require('mocha');
+const {describe,it} = require('mocha');
 const request = require('supertest');
-const knex = require('../../../knex');
-const server = require('../../../app');
+const knex = require('../../../knex.js');
+const app = require('../../../app.js');
+const expect = require('chai').expect;
 
-suite('users routes', () => {
-  before((done) => {
-    knex.migrate.latest()
-      .then(() => {
-        done();
-      })
-      .catch((err) => {
-        done(err);
-      });
-  });
+beforeEach((done) => {
+  knex.migrate.rollback()
+    .then(() => {
+      done();
+    })
+    .catch((err) => {
+      done(err);
+    })
+})
+beforeEach((done) => {
+  knex.migrate.latest()
+    .then(() => {
+      done();
+    })
+    .catch((err) => {
+      done(err);
+    })
+})
+beforeEach((done) => {
+  knex.seed.run()
+    .then(() => {
+      done();
+    })
+    .catch((err) => {
+      done(err);
+    });
+})
 
-  beforeEach((done) => {
-    knex.seed.run()
-      .then(() => {
-        done();
-      })
-      .catch((err) => {
-        done(err);
-      });
-  });
 
-  test('GET /users', (done) => {
-    request(server)
+describe('users routes', () => {
+  it('GET users/', (done) => {
+    request(app)
       .get('/users')
       .set('Accept', 'application/json')
       .set('Content-Type', 'application/json')
@@ -64,12 +72,18 @@ suite('users routes', () => {
           username: 'MartyTheeMartian',
           first_name: 'Marty',
           last_name:  'Yee'
+        },
+        {
+          id: 6,
+          username: 'Sasha',
+          first_name: 'Sasha',
+          last_name: 'Dog'
         }
       ],done)
   });
 
-  test('POST /users', (done) => {
-    request(server)
+  it('POST /users', (done) => {
+    request(app)
       .post('/users')
       .set('Accept', 'application/json')
       .set('Content-Type', 'application/json')
@@ -81,14 +95,14 @@ suite('users routes', () => {
       })
       .expect('Content-Type', /json/)
       .expect(200,{
-        id: 6,
+        id: 7,
         username: 'KillaKev',
         first_name: 'Kevin',
         last_name:  'Lam',
       },done)
   });
-  test('GET /users/:id', (done) => {
-    request(server)
+  it('GET /users/:id', (done) => {
+    request(app)
       .get('/users/2')
       .set('Accept', 'application/json')
       .set('Content-Type', 'application/json')
@@ -99,9 +113,9 @@ suite('users routes', () => {
         last_name:  'Shoman'
       },done)
   });
-  test('PUT /users/:id', (done) => {
-    request(server)
-      .put('/users/4')
+  it('PATCH /users/:id', (done) => {
+    request(app)
+      .patch('/users/4')
       .set('Accept', 'application/json')
       .set('Content-Type', 'application/json')
       .send({
@@ -120,8 +134,8 @@ suite('users routes', () => {
       },done)
 
   });
-  test('DELETE /users/:id', (done) => {
-    request(server)
+  it('DELETE /users/:id', (done) => {
+    request(app)
       .del('/users/4')
       .set('Accept', 'application/json')
       .set('Content-Type', 'application/json')

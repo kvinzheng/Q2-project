@@ -1,7 +1,7 @@
 swagger: "2.0"
 info:
   version: "0.0.1"
-  title: Trip Planner
+  title: PackaVacay
 # during dev, should point to your local machine
 host: localhost:10010
 # basePath prefixes all resource paths
@@ -21,7 +21,7 @@ paths:
   /flight:
     x-swagger-router-controller: flight
     get:
-      description: get an array of all added flights, enter the city where you depart from, it will give u a lot of infomation where u can land
+      description: Get an array of all added flights, enter the city where you depart from, api provides airline, airline cost, departure_city, departure_date, destination_city, and its ticket cost
       #define the type of response for Success "200" and Error
       produces:
         - application/json
@@ -37,11 +37,12 @@ paths:
           description: enter the date in 'yyyy-mm-dd' format
           required: true
           type: string
-        # - in: query
-        #   name: arrival_city
-        #   description: arrival_city
+        # - in: header
+        #   name: token
         #   required: true
         #   type: string
+        #   description: this is token
+
       responses:
         "200":
           description: Success
@@ -57,7 +58,7 @@ paths:
   /flight/{id}:
     x-swagger-router-controller: flight
     get:
-      description: get a flight by id
+      description: Search for specific flight, its airline name, cost, departure city, departure date
       operationId: GetFlight
       produces:
         - application/json
@@ -81,7 +82,7 @@ paths:
   /restaurant:
     x-swagger-router-controller: restaurant
     get:
-      description: get an array of all added restaurants
+      description: Using Yelp npm package to search for an array of first 40 restaurants with an inputs of the departure city and a yelp rating. Restaurants are sorted in the order of view count from largest to smallest
       operationId: GetAllRestaurant
       produces:
         - application/json
@@ -91,13 +92,13 @@ paths:
           description: the city that the restaurant locates at
           required: true
           type: string
-          
+
         - in: query
           name: rating
           description: the ratinng that the users want it to be
           required: true
           type: string
-          
+
       responses:
         "200":
           description: Success
@@ -109,7 +110,6 @@ paths:
           description: Error
           schema:
             $ref: "#/definitions/ErrorResponse"
-
 
   /hotel:
     x-swagger-router-controller: hotel
@@ -168,7 +168,7 @@ paths:
             $ref: "#/definitions/ErrorResponse"
 
     post:
-      description: add user info
+      description: To register an new account, user needs to enter first_name, last_name, username, password and a unique token. The response object would includes an token for authentication purpose
       operationId: AddUser
       produces:
         - application/json
@@ -216,7 +216,7 @@ paths:
 
     patch:
       # define the parameters
-      description: updating an new user
+      description: update a sepecific user with inputs of first_name, last_name, username, and password, the return response will include id, username, first_name, and last_name
       operationId: UpdateUser
       produces:
         - application/json
@@ -242,7 +242,7 @@ paths:
           schema:
             $ref: "#/definitions/ErrorResponse"
     delete:
-      description: deleting a specific folder
+      description: deleting a specific user, it will return back a id, username, first_name, and last_name
       operationId: DeleteUser
       produces:
         - application/json
@@ -266,7 +266,7 @@ paths:
   /users/{id}/packages:
     x-swagger-router-controller: packages
     get:
-      description: getting all the packages from the user
+      description: Get a full package information of the specific user, the response object will have the following - package_id, user_id, airline, flight_id, flight_cost, restaurant_name, restaurant_id, restaurants_review, hotels_name, hotels_id, and hotels_cost
       operationId: GetAllPackagePerUser
       produces:
         - application/json
@@ -288,29 +288,23 @@ paths:
           schema:
             $ref: "#/definitions/ErrorResponse"
 
-
-  /users/{user_id}/packages/{package_id}:
-    x-swagger-router-controller: packages
-    get:
-      # define the parameters
-      description: getting a specific user package
-      operationId: GetUniquePackageUniqueUser
+    post:
+      description: To add a package for the specific user, user needs to enter budget, departure_airport_name, destination_airport_name, destination_airport_name, departure_date
+      operationId: PostUniquePackagePerUser
       produces:
         - application/json
       parameters:
-        - name: user_id
-          description: loooking for specific user
+        - name: id
           type: integer
-          format: int64
           in: path
           required: true
-        - name: package_id
-          description: looking for specific package
-          type: integer
-          format: int64
-          in: path
+          description: adding an package info into the user_package table
+        - name: package
+          in: body
+          description: adding an package to that user
           required: true
-
+          schema:
+            $ref: "#/definitions/AddNewPackage"
       responses:
         "200":
           description: Success
@@ -321,6 +315,121 @@ paths:
           schema:
             $ref: "#/definitions/ErrorResponse"
 
+  # /users/{user_id}/packages/{package_id}:
+  #   x-swagger-router-controller: packages
+  #   get:
+  #     # define the parameters
+  #     description: getting a specific user package
+  #     operationId: GetUniquePackageUniqueUser
+  #     produces:
+  #       - application/json
+  #     parameters:
+  #       - name: body
+  #         in: body
+  #         description: adding an package to that user
+  #         required: true
+  #         schema:
+  #           $ref: "#/definitions/AddNewPackage"
+  #       - name: id
+  #         in: path
+  #         description: the id of the user
+  #         required: true
+  #         type: integer
+  #     responses:
+  #       "200":
+  #         description: Success
+  #         schema:
+  #           $ref: "#/definitions/PackageDetail"
+  #       default:
+  #         description: Error
+  #         schema:
+  #           $ref: "#/definitions/ErrorResponse"
+
+  # /users/{user_id}/packages/{package_id}:
+  #   x-swagger-router-controller: packages
+  #   get:
+  #     # define the parameters
+  #     description: getting a specific user package
+  #     operationId: GetUniquePackageUniqueUser
+  #     produces:
+  #       - application/json
+  #     parameters:
+  #       - name: user_id
+  #         description: loooking for specific user
+  #         type: integer
+  #         format: int64
+  #         in: path
+  #         required: true
+  #       - name: package_id
+  #         description: looking for specific package
+  #         type: integer
+  #         format: int64
+  #         in: path
+  #         required: true
+
+  #     responses:
+  #       "200":
+  #         description: Success
+  #         schema:
+  #           $ref: "#/definitions/PackageDetail"
+  #       default:
+  #         description: Error
+  #         schema:
+  #           $ref: "#/definitions/ErrorResponse"
+
+    # put:
+    #   # define the parameters
+    #   description: updating a new package
+    #   operationId: UpdateUniquePackageUniqueUser
+    #   produces:
+    #     - application/json
+    #   parameters:
+    #     - name: user_id
+    #       description: loooking for specific user
+    #       type: integer
+    #       format: int64
+    #       in: path
+    #       required: true
+    #     - name: package_id
+    #       description: looking for specific package
+    #       type: integer
+    #       format: int64
+    #       in: path
+    #       required: true
+    #     - name: body
+    #       description: this is what user want to update
+    #       in: body
+    #       required: true
+    #       schema:
+    #         $ref: "#/definitions/PackageDetail"
+    #   responses:
+    #     "200":
+    #       description: Success
+    #       schema:
+    #         $ref: "#/definitions/PackageDetail"
+    #     default:
+    #       description: Error
+    #       schema:
+    #         $ref: "#/definitions/ErrorResponse"
+    # delete:
+    #   # define the parameters
+    #   description: deleting a package
+    #   produces:
+    #     - application/json
+    #   operationId: DeleteUniquePackageUniqueUser
+    #   parameters:
+    #     - name: user_id
+    #       description: loooking for specific user
+    #       type: integer
+    #       format: int64
+    #       in: path
+    #       required: true
+    #     - name: package_id
+    #       description: looking for specific package
+    #       type: integer
+    #       format: int64
+    #       in: path
+    #       required: true
 
   /login:
     x-swagger-router-controller: login
@@ -336,7 +445,7 @@ paths:
           required: true
           schema:
             $ref: "#/definitions/signin"
-          
+
       responses:
         "200":
           description: Success
@@ -346,6 +455,16 @@ paths:
           description: Error
           schema:
             $ref: "#/definitions/ErrorResponse"
+
+    #   responses:
+    #     "200":
+    #       description: Success
+    #       schema:
+    #         $ref: "#/definitions/PackageDetail"
+    #     default:
+    #       description: Error
+    #       schema:
+    #         $ref: "#/definitions/ErrorResponse"
 
 
   /swagger:
@@ -388,7 +507,6 @@ definitions:
       - flight_cost
       - restaurant_name
       - restaurant_id
-      - restaurants_cost
       - hotels_name
       - hotels_id
       - hotels_cost
@@ -407,8 +525,6 @@ definitions:
         type: string
       restaurant_id:
         type: integer
-      restaurants_cost:
-        type: integer
       hotels_name:
         type: string
       hotels_id:
@@ -417,6 +533,34 @@ definitions:
         type: integer
 
 
+  AddNewPackage:
+    type: object
+    required:
+      - airfare
+      - departure_airport_name
+      - destination_airport_name
+      - departure_date
+      - hotel_name
+      - city_name
+    properties:
+      airfare:
+        description: enter the amount of allowed airfare, please enter an amount larger than your airfare; otherwise, it won't work. For instance, you can enter a big amount such 2000 dollars
+        type: integer
+      departure_airport_name:
+        description: enter the airport name such as "SFO" or "JFK"
+        type: string
+      destination_airport_name:
+        description: enter the airport name such as "SFO" or "JFK"
+        type: string
+      departure_date:
+        description: enter the date in 'yyyy-mm-dd' format
+        type: string
+      hotel_name:
+        description: enter the hotel name such as 'Hilton'
+        type: string
+      city_name:
+        description: enter the city name such as 'San Francisco'
+        type: string
 
   PackageDetail:
     type: object
@@ -428,7 +572,6 @@ definitions:
       - flight_cost
       - restaurant_name
       - restaurant_id
-      - restaurants_cost
       - hotels_name
       - hotels_id
       - hotels_cost
@@ -447,8 +590,6 @@ definitions:
         type: string
       restaurant_id:
         type: integer
-      restaurants_cost:
-        type: integer
       hotels_name:
         type: string
       hotels_id:
@@ -456,36 +597,32 @@ definitions:
       hotels_cost:
         type: integer
 
-
   GetRestaurantResponse:
     required:
       - id
       - name
       - city_name
       - street_name
-      - cost
+      - view_count
     properties:
       id:
-        type: integer
+        type: string
       name:
         type: string
       city_name:
         type: string
       street_name:
         type: string
-      cost:
+      view_count:
         type: integer
 
   GetHotelResponse:
     required:
-      - id
       - name
       - city_name
       - street_name
       - cost
     properties:
-      id:
-        type: integer
       name:
         type: string
       city_name:
@@ -515,20 +652,20 @@ definitions:
   AddUser:
     type: object
     required:
-      - password
       - first_name
       - last_name
       - username
+      - password
     properties:
-      password:
-        type: string
       first_name:
         type: string
       last_name:
         type: string
       username:
         type: string
-
+      password:
+        type: string
+        
   updateUser:
     type: object
     required:
@@ -564,6 +701,7 @@ definitions:
       username:
         type: string
 
+
   signin:
     type: object
     required:
@@ -593,7 +731,6 @@ definitions:
         type: string
       token:
         type: string
-        
 
   PostUsersResponse:
     type: object
@@ -602,6 +739,8 @@ definitions:
       - first_name
       - last_name
       - username
+      - token
+
     properties:
       id:
         type: integer
@@ -611,7 +750,8 @@ definitions:
         type: string
       username:
         type: string
-
+      token:
+        type: string
 
   ErrorResponse:
     required:

@@ -1,88 +1,63 @@
 'use strict';
 
 process.env.NODE_ENV = 'test';
-
-const { suite, test } = require('mocha');
+// const { suite, test } = require('mocha');
+const {describe,it} = require('mocha');
 const request = require('supertest');
-const knex = require('../../../knex');
-const server = require('../../../app');
+const knex = require('../../../knex.js');
+const app = require('../../../app.js');
+const expect = require('chai').expect;
 
-suite('restaurant routes', () => {
-  before((done) => {
-    knex.migrate.latest()
-      .then(() => {
-        done();
-      })
-      .catch((err) => {
-        done(err);
-      });
-  });
+beforeEach((done) => {
+  knex.migrate.rollback()
+    .then(() => {
+      done();
+    })
+    .catch((err) => {
+      done(err);
+    })
+})
+beforeEach((done) => {
+  knex.migrate.latest()
+    .then(() => {
+      done();
+    })
+    .catch((err) => {
+      done(err);
+    })
+})
+beforeEach((done) => {
+  knex.seed.run()
+    .then(() => {
+      done();
+    })
+    .catch((err) => {
+      done(err);
+    });
+})
 
-  beforeEach((done) => {
-    knex.seed.run()
-      .then(() => {
-        done();
-      })
-      .catch((err) => {
-        done(err);
-      });
-  });
-  test('GET restaurant/', (done) => {
-    request(server)
+describe('restaurant routes', () => {
+  it('GET restaurant/', (done) => {
+    request(app)
       .get('/restaurant')
       .set('Accept', 'application/json')
       .set('Content-Type', 'application/json')
       .expect('Content-Type', /json/)
-      .expect(200,[
-        {
-          id: 1,
-          name: 'McDonalds',
-          street_name: '3828 McDonald Way',
-          city_name: 'Miami',
-          cost: 5.00
-        },
-        {
-          id: 2,
-          name: 'Red Lobster',
-          street_name: '9356 Lexington Way',
-          city_name: 'New York City',
-          cost: 50.00
-        },
-        {
-          id: 3,
-          name: 'Wingstop',
-          street_name: '9356 Lexington Way',
-          city_name: 'Atlanta',
-          cost: 20.00
-        },
-        {
-          id: 4,
-          name: 'Red Lobster',
-          street_name: '26 Redford Ln',
-          city_name: 'Miami',
-          cost: 100.00
-        },
-        {
-          id: 5,
-          name: 'Oasis',
-          street_name: '2nd St',
-          city_name:  'San Francisco',
-          cost: 20.00
-        }
-      ], done)
+       .expect(404, JSON.stringify({code:404, message: "please enter valid information"}, done));
   });
-  test('GET restaurant/:id', (done) => {
-    request(server)
-      .get('/restaurant/3')
-      .set('Accept', 'application/json')
-      .set('Content-Type', 'application/json')
-      .expect('Content-Type', /json/)
-      .expect(200, {
-        id: 3,
-        name: 'Wingstop',
-        street_name: '9356 Lexington Way',
-        city_name: 'Atlanta',
-        cost: 20.00
-      }, done)
-  });
+  // test('GET restaurant/:id', (done) => {
+  //   request(server)
+  //     .get('/restaurant/3')
+  //     .set('Accept', 'application/json')
+  //     .set('Content-Type', 'application/json')
+  //     .expect('Content-Type', /json/)
+  //     .expect(200, {
+  //       id: 3,
+  //       name: "Gucci Mane Hotel",
+  //       street_name: "San Francisco",
+  //       city_name: "500 California St",
+  //       cost: 150,
+  //       date: "2017/12/12"
+  //     }, done)
+  // });
 });

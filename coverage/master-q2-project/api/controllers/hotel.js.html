@@ -1,0 +1,434 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for master-q2-project/api/controllers/hotel.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../prettify.css" />
+    <link rel="stylesheet" href="../../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../../index.html">All files</a> / <a href="index.html">master-q2-project/api/controllers</a> hotel.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">40.48% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>17/42</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>0/0</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">47.37% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>9/19</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">40.48% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>17/42</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">'use strict';
+var util = require('util');
+var knex = require('../../knex.js')
+const request = require('request');
+const fetch = require('node-fetch');
+//MapQuest APIKEY=	p4a2P2xDL91lyyxP13GGAhpLhCwq7nZW
+// http://partners.api.skyscanner.net/apiservices/hotels/liveprices/v2/{market}/{currency}/{locale}/{entityid}/{checkindate}/{checkoutdate}/{guests}/{rooms}?apiKey={apiKey}
+// http://partners.api.skyscanner.net/apiservices/hotels/liveprices/v2/UK/EUR/en-GB/27539733/2017-12-04/2017-12-10/2/1?apiKey=prtl6749387986743898559646983194
+&nbsp;
+function <span class="fstat-no" title="function not covered" >convertCoordtoAddress(</span>lat, long) {
+<span class="cstat-no" title="statement not covered" >  return fetch(`http://www.mapquestapi.com/geocoding/v1/reverse?key=p4a2P2xDL91lyyxP13GGAhpLhCwq7nZW&amp;location=${lat},${long}`)</span>
+    .then(<span class="fstat-no" title="function not covered" >(r</span>es) =&gt; {
+<span class="cstat-no" title="statement not covered" >      return res.json();</span>
+    })
+    .then(<span class="fstat-no" title="function not covered" >(j</span>ayson) =&gt; {
+      let location = <span class="cstat-no" title="statement not covered" >{};</span>
+      // console.log('jayson.results[0].locations[0].street', jayson.results[0].locations[0].street);
+<span class="cstat-no" title="statement not covered" >      location.street_name = jayson.results[0].locations[0].street;</span>
+<span class="cstat-no" title="statement not covered" >      location.city_name = jayson.results[0].locations[0].adminArea5;</span>
+<span class="cstat-no" title="statement not covered" >      return location</span>
+    })
+    .catch(<span class="fstat-no" title="function not covered" >(e</span>rr) =&gt; {
+<span class="cstat-no" title="statement not covered" >      throw err;</span>
+    })
+}
+&nbsp;
+function GetAllHotel(req, res){
+  //grap entity id for given city http://partners.api.skyscanner.net/apiservices/hotels/autosuggest/v2/{market}/{currency}/{locale}/{query}?apikey={apikey}
+  let entityId;
+  fetch('http://partners.api.skyscanner.net/apiservices/hotels/autosuggest/v2/US/USD/en-US/NYC?apiKey=prtl6749387986743898559646983194')
+    .then((res) =&gt; {
+      return res.json();
+    })
+    .then((jayson) =&gt; {
+      // entityId = jayson.results[0].individual_id
+      return jayson.results[0].individual_id
+    })
+    .then((entityId) =&gt; {
+      console.log('entityId', entityId);
+      fetch(`http://partners.api.skyscanner.net/apiservices/hotels/liveprices/v2/US/USD/en-US/${entityId}/2017-12-04/2017-12-05/2/1?apiKey=ga353167713168140635157121884401`)
+      .then((res) =&gt; {
+        return res.json()
+      })
+      .then((jayson) =&gt; {
+        console.log('jayson', jayson);
+        let finalObjs = [];
+        let hotelPrices = jayson.hotels_prices.map(<span class="fstat-no" title="function not covered" >(h</span>otel) =&gt; {
+<span class="cstat-no" title="statement not covered" >          return hotel.agent_prices[0].price_total</span>
+        });
+<span class="cstat-no" title="statement not covered" >        console.log('hotelPrices', hotelPrices);</span>
+        let hotelObjects = <span class="cstat-no" title="statement not covered" >jayson.hotels.map(<span class="fstat-no" title="function not covered" >(h</span>otel, index) =&gt; {</span>
+          let hotelObj = <span class="cstat-no" title="statement not covered" >{};</span>
+<span class="cstat-no" title="statement not covered" >          hotelObj.name = hotel.name;</span>
+<span class="cstat-no" title="statement not covered" >          hotelObj.cost = hotelPrices[index];</span>
+<span class="cstat-no" title="statement not covered" >          return convertCoordtoAddress(hotel.latitude, hotel.longitude)</span>
+            .then(<span class="fstat-no" title="function not covered" >(l</span>ocation) =&gt; {
+<span class="cstat-no" title="statement not covered" >              hotelObj.street_name = location.street_name;</span>
+<span class="cstat-no" title="statement not covered" >              hotelObj.city_name = location.city_name;</span>
+              // console.log(hotelObj);
+<span class="cstat-no" title="statement not covered" >              finalObjs.push(hotelObj);</span>
+<span class="cstat-no" title="statement not covered" >              console.log('finalObjs', finalObjs);</span>
+<span class="cstat-no" title="statement not covered" >              return hotelObj;</span>
+            })
+<span class="cstat-no" title="statement not covered" >          return hotelObj;</span>
+        })
+        // console.log('hotelObjects', hotelObjects);
+        // console.log('finalObjs2', finalObjs);
+<span class="cstat-no" title="statement not covered" >        return Promise.all(hotelObjects)</span>
+          .then(<span class="fstat-no" title="function not covered" >(h</span>otelsArr) =&gt; {
+<span class="cstat-no" title="statement not covered" >            console.log('hotelsArr', hotelsArr);</span>
+<span class="cstat-no" title="statement not covered" >            res.send(hotelsArr)</span>
+          })
+      })
+      .catch((err) =&gt; {
+        throw err;
+      })
+    })
+    .catch(<span class="fstat-no" title="function not covered" >(e</span>rr) =&gt; {
+<span class="cstat-no" title="statement not covered" >      throw err</span>
+    })
+  //   , (err, res, body) =&gt; {
+  //   let jayson = JSON.parse(body);
+  //   console.log('hotel Autosuggest', jayson);
+  //   console.log('first entityid', jayson.results[0].individual_id);
+  //   entityid = jayson.results[0].individual_id;
+  // });
+  // request('http://partners.api.skyscanner.net/apiservices/hotels/liveprices/v2/US/USD/en-US/${entityid}/2017-12-04/2017-12-06/2/1?apiKey=prtl6749387986743898559646983194', (err, res, body) =&gt; {
+  //   const fetchRes = JSON.parse(body);
+  //   let hotelIdAndPrice = fetchRes.hotels_prices.map((hotel) =&gt; {
+  //     return [hotel.id, hotel.agent_prices[0].price_total]
+  //   })
+  //   console.log(hotelIdAndPrice);
+  //   let hotelObj = hotelIdAndPrice.forEach((hotel) =&gt; {
+  //     let obj = {}
+  //     let matched = fetchRes.hotels.find((hotelObj) =&gt; {
+  //         hotelObj.hotel_id === hotel[0]
+  //       })
+  //       obj.id = hotel[0];
+  //       obj.cost = hotel[1];
+  //       obj.name = matched.name;
+  //       console.log(obj);
+  //   })
+  // })
+};
+&nbsp;
+function GetSpecificHotel(req, res){
+  return knex('hotels')
+    .where('id', req.swagger.params.id.value)
+    .select('*')
+    .first()
+    .then((hotel) =&gt; {
+      res.send(hotel);
+    })
+    .catch(<span class="fstat-no" title="function not covered" >(e</span>rr) =&gt; {
+<span class="cstat-no" title="statement not covered" >      next();</span>
+    })
+};
+&nbsp;
+&nbsp;
+module.exports = {
+  GetAllHotel: GetAllHotel,
+  GetSpecificHotel: GetSpecificHotel
+};
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Fri Mar 31 2017 21:52:50 GMT-0700 (PDT)
+</div>
+</div>
+<script src="../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../sorter.js"></script>
+</body>
+</html>

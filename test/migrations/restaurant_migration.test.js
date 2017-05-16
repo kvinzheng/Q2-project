@@ -49,7 +49,7 @@ suite('restaurants migrations process', () => {
             defaultValue: '\'\'::character varying'
           },
 
-          cost: {
+          review: {
             type: 'real',
             maxLength: null,
             nullable: false,
