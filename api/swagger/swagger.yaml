@@ -3,9 +3,9 @@ info:
   version: "0.0.1"
   title: PackaVacay
 # during dev, should point to your local machine
-host: travel-package-project.herokuapp.com
+host: localhost:10010
 # basePath prefixes all resource paths
-basePath: /api
+basePath: /
 #
 schemes:
   # tip: remove http to make production-grade
@@ -37,11 +37,11 @@ paths:
           description: enter the date in 'yyyy-mm-dd' format
           required: true
           type: string
-        # - in: header
-        #   name: token
-        #   required: true
-        #   type: string
-        #   description: this is token
+        - in: header
+          name: token
+          required: true
+          type: string
+          description: this is token
 
       responses:
         "200":
@@ -730,6 +730,7 @@ definitions:
       - first_name
       - last_name
       - username
+      - token
 
     properties:
       id:
@@ -739,6 +740,8 @@ definitions:
       last_name:
         type: string
       username:
+        type: string
+      token:
         type: string
 
   ErrorResponse:

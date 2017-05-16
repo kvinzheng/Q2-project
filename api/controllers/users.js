@@ -42,7 +42,7 @@ function AddUser(req, res) {
           })
           .then((userInfo) => {
             let goodUser = userInfo[0];
-            // goodUser.token = token;
+            goodUser.token = token;
             // console.log('what is userIno', goodUser);
             delete goodUser.hashed_password;
             res.status(200).json(goodUser);

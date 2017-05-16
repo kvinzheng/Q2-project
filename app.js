@@ -3,7 +3,7 @@
 if (process.env.NODE_ENV!== 'production'){
   require('dotenv').config();
 }
-// let verify = require('./api/controllers/validation.js')
+let verify = require('./api/controllers/validation.js')
 var SwaggerExpress = require('swagger-express-mw');
 const express = require('express');
 const app = express();
@@ -18,7 +18,7 @@ var config = {
 };
 
 //middleware goes here
-// app.use('/flight', verify.middlewareVerify);
+app.use('/flight', verify.middlewareVerify);
 
 SwaggerExpress.create(config, function(err, swaggerExpress) {
   if (err) {
