@@ -16,11 +16,10 @@ function GetAllRestaurant(req, res) {
     yelp.search({
             term: 'food',
             location: req.query.departure_city,
-            limit: 20,
+            limit: 40,
             rating: req.query.rating
         })
         .then(function(data) {
-          console.log('what is food now', data);
             let finalArray = [];
             data.businesses.forEach((ele) => {
                 let result = {};
@@ -34,11 +33,11 @@ function GetAllRestaurant(req, res) {
                 else{
                   result.view_count = 0;
                 }
-                // console.log('what is result', result);
                 finalArray.push(result);
             });
-            finalArray.sort((a,b) =>{ return b.view_count - a.view_count });
-            console.log('what is finalArray here', finalArray);
+            finalArray.sort((a,b) =>{
+              return b.view_count - a.view_count
+            });
             res.status(200).json(finalArray);
         })
         .catch(function(err) {
@@ -46,21 +45,6 @@ function GetAllRestaurant(req, res) {
         });
 };
 
-// function GetSpecificRestaurant(req, res) {
-//     return knex('restaurants')
-//         .where('id', req.swagger.params.id.value)
-//         .first()
-//         .then((restaurant) => {
-//             console.log(restaurant);
-//             res.status(200).send(restaurant);
-//         })
-//         .catch((err) => {
-//             console.error(err);
-//         });
-// };
-
-
 module.exports = {
-    GetAllRestaurant: GetAllRestaurant,
-    // GetSpecificRestaurant: GetSpecificRestaurant
+    GetAllRestaurant,
 };

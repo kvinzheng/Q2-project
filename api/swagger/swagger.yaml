@@ -82,7 +82,7 @@ paths:
   /restaurant:
     x-swagger-router-controller: restaurant
     get:
-      description: Using Yelp npm package to search for an array of restaurant with inputs of departure city and yelp rating. Restaurants are sorted in the order of view count from largest to smallest
+      description: Using Yelp npm package to search for an array of first 40 restaurants with an inputs of the departure city and a yelp rating. Restaurants are sorted in the order of view count from largest to smallest
       operationId: GetAllRestaurant
       produces:
         - application/json
