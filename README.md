@@ -29,3 +29,4 @@ OAUTH_TOKEN_SECRET= xxxxx
 9. `knex seed:run` Add the seeds to the db.
 10. `swagger project edit` To run it locally in development mode.
 11. Have fun!
+
