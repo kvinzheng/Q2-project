@@ -1,9 +1,9 @@
 'use strict';
 var util = require('util');
-var knex = require('../../knex.js');
+const knex = require('../../knex.js');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-
+//Return an object with all the user information
 function GetAllUsers(req, res) {
   return knex('users')
     .select('id', 'first_name', 'last_name', 'username')
@@ -14,7 +14,7 @@ function GetAllUsers(req, res) {
       console.log(err);
     });
 };
-
+//register a new user and return back a user object with first_name, last_name and password
 function AddUser(req, res) {
   let token;
   return knex('users')
@@ -37,13 +37,11 @@ function AddUser(req, res) {
             token = jwt.sign(claim, process.env.JWT_KEY, {
               expiresIn: '7 days'
             });
-
             return knex('users').insert(newUser, '*');
           })
           .then((userInfo) => {
             let goodUser = userInfo[0];
             goodUser.token = token;
-            // console.log('what is userIno', goodUser);
             delete goodUser.hashed_password;
             res.status(200).json(goodUser);
           })
@@ -55,10 +53,9 @@ function AddUser(req, res) {
     .catch((err) => {
       console.log(err);
     })
-}
-
+};
+//get the sepecific user and return its related related user info
 function GetSpecificUser(req, res) {
-  // console.log('what is this',req.swagger.params.id.value);
   knex('users')
     .where("id", req.swagger.params.id.value)
     .then((users) => {
@@ -66,9 +63,7 @@ function GetSpecificUser(req, res) {
         res.set('Content-Type', 'text/plain');
         res.status(404).send("This user is not found");
       } else {
-        // console.log('am i here', users);
         delete users[0].hashed_password
-        // console.log('what is user[0]', users[0]);
         res.json(users[0]);
       }
     })
@@ -76,7 +71,7 @@ function GetSpecificUser(req, res) {
       console.error(err);
     });
 };
-
+//update the user info with a respnse of first_name, last_name, username
 function UpdateUser(req, res) {
   const updatedUser = req.body;
   knex('users')
@@ -101,7 +96,6 @@ function UpdateUser(req, res) {
           .then((userInfo) => {
             let goodUser = userInfo[0];
             delete goodUser.hashed_password;
-            // console.log('WHAT IS THIS', userInfo);
             res.status(200).json(goodUser);
           })
           .catch((error) => {
@@ -112,84 +106,31 @@ function UpdateUser(req, res) {
     .catch((error) => {
       console.error(error);
     })
-}
-// return bcrypt.hash(updatedUser.password, 12)
-//     .then((hashed_password) => {
-//         updatedUser.hashed_password = hashed_password;
-//         return knex('users')
-//             .where('id', req.swagger.params.id.value)
-//             .update({
-//                 first_name: req.body.first_name,
-//                 last_name: req.body.last_name,
-//                 username: req.body.username
-//             }, '*')
-//             .first()
-//             .then((updated) => {
-//                 console.log('what is update?', updated);
-//                 delete updated.hashed_password;
-//                 if (updated) {
-//                     console.log('what am i sending', updated);
-//                     res.send(updated);
-//                 } else {
-//                     throw new Error('it is not here');
-//                 }
-//             })
-//             .catch((err) => {
-//                 res.status(404);
-//                 res.send({
-//                     status: 404,
-//                     ErrorMessage: 'Not Found.'
-//                 });
-//             })
-//     })
-//     .catch((err) => {
-//         res.status(404);
-//         res.send({
-//             status: 404,
-//             ErrorMessage: 'Not Found.'
-//         });
-//     });
-// };
+};
 
+//delete a sepecific user
 function DeleteUser(req, res, next) {
-  // let deletedUser;
   if (isNaN(req.swagger.params.id.value)) {
     res.set('Content-type', 'text/plain');
     res.status(404).send('Not Found');
   } else {
-    return knex('users').first()
-      .where('id', req.swagger.params.id.value)
-      .then((user) => {
-        // console.log('what is user', user);
-        if (user === undefined) {
-          res.set('Content-Type', 'text/plain');
-          res.status(404).send('This ID is Not Found, Please try another one');
-          // next();
-        } else {
-          console.log('what is value,', req.swagger.params.id.value);
-          return knex('users').returning('*')
-            .where('id', req.swagger.params.id.value)
-            .del();
-          // return user;
-        }
-      })
-      // .catch((error) => {
-      //   console.error(error)
-      // })
-      .then((deletedContent) => {
-        // console.log('what is deletedContent', deletedContent);
-        if (deletedContent) {
-          // console.log('am i here');
-          delete deletedContent[0].hashed_password;
-          res.status(200).json(deletedContent[0]);
-        }
-      })
-      //have a bug here
-      .catch((error) => {
+    return knex('users').first().where('id', req.swagger.params.id.value).then((user) => {
+      if (user === undefined) {
         res.set('Content-Type', 'text/plain');
         res.status(404).send('This ID is Not Found, Please try another one');
-        console.error(error)
-      })
+      } else {
+        return knex('users').returning('*').where('id', req.swagger.params.id.value).del();
+      }
+    }).then((deletedContent) => {
+      if (deletedContent) {
+        delete deletedContent[0].hashed_password;
+        res.status(200).json(deletedContent[0]);
+      }
+    }).catch((error) => {
+      res.set('Content-Type', 'text/plain');
+      res.status(404).send('This ID is Not Found, Please try another one');
+      console.error(error)
+    })
   }
 }
 
@@ -199,5 +140,4 @@ module.exports = {
   GetSpecificUser: GetSpecificUser,
   UpdateUser: UpdateUser,
   DeleteUser: DeleteUser
-
 };
