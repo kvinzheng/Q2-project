@@ -14,12 +14,11 @@ function middlewareVerify(req, res, next) {
     } else {
       console.log('pass!');
       tokenId = payload.userId;
-      
+
       next();
     }
   });
 }
-//eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJrZXZpbmF3ZXNvbWUiLCJpYXQiOjE0OTUwNTYyMDAsImV4cCI6MTQ5NTY2MTAwMH0.2WtveBBVh0pSOTpNIXfIaB58DDSwOhtKLBWo9dJGhR8
 
 module.exports = {
   middlewareVerify: middlewareVerify
