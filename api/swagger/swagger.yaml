@@ -276,6 +276,11 @@ paths:
           description: the id that needs to get back
           required: true
           type: integer
+        - in: header
+          name: token
+          description: an authorization header
+          required: true
+          type: string
       responses:
         "200":
           description: Success
@@ -315,122 +320,6 @@ paths:
           schema:
             $ref: "#/definitions/ErrorResponse"
 
-  # /users/{user_id}/packages/{package_id}:
-  #   x-swagger-router-controller: packages
-  #   get:
-  #     # define the parameters
-  #     description: getting a specific user package
-  #     operationId: GetUniquePackageUniqueUser
-  #     produces:
-  #       - application/json
-  #     parameters:
-  #       - name: body
-  #         in: body
-  #         description: adding an package to that user
-  #         required: true
-  #         schema:
-  #           $ref: "#/definitions/AddNewPackage"
-  #       - name: id
-  #         in: path
-  #         description: the id of the user
-  #         required: true
-  #         type: integer
-  #     responses:
-  #       "200":
-  #         description: Success
-  #         schema:
-  #           $ref: "#/definitions/PackageDetail"
-  #       default:
-  #         description: Error
-  #         schema:
-  #           $ref: "#/definitions/ErrorResponse"
-
-  # /users/{user_id}/packages/{package_id}:
-  #   x-swagger-router-controller: packages
-  #   get:
-  #     # define the parameters
-  #     description: getting a specific user package
-  #     operationId: GetUniquePackageUniqueUser
-  #     produces:
-  #       - application/json
-  #     parameters:
-  #       - name: user_id
-  #         description: loooking for specific user
-  #         type: integer
-  #         format: int64
-  #         in: path
-  #         required: true
-  #       - name: package_id
-  #         description: looking for specific package
-  #         type: integer
-  #         format: int64
-  #         in: path
-  #         required: true
-
-  #     responses:
-  #       "200":
-  #         description: Success
-  #         schema:
-  #           $ref: "#/definitions/PackageDetail"
-  #       default:
-  #         description: Error
-  #         schema:
-  #           $ref: "#/definitions/ErrorResponse"
-
-    # put:
-    #   # define the parameters
-    #   description: updating a new package
-    #   operationId: UpdateUniquePackageUniqueUser
-    #   produces:
-    #     - application/json
-    #   parameters:
-    #     - name: user_id
-    #       description: loooking for specific user
-    #       type: integer
-    #       format: int64
-    #       in: path
-    #       required: true
-    #     - name: package_id
-    #       description: looking for specific package
-    #       type: integer
-    #       format: int64
-    #       in: path
-    #       required: true
-    #     - name: body
-    #       description: this is what user want to update
-    #       in: body
-    #       required: true
-    #       schema:
-    #         $ref: "#/definitions/PackageDetail"
-    #   responses:
-    #     "200":
-    #       description: Success
-    #       schema:
-    #         $ref: "#/definitions/PackageDetail"
-    #     default:
-    #       description: Error
-    #       schema:
-    #         $ref: "#/definitions/ErrorResponse"
-    # delete:
-    #   # define the parameters
-    #   description: deleting a package
-    #   produces:
-    #     - application/json
-    #   operationId: DeleteUniquePackageUniqueUser
-    #   parameters:
-    #     - name: user_id
-    #       description: loooking for specific user
-    #       type: integer
-    #       format: int64
-    #       in: path
-    #       required: true
-    #     - name: package_id
-    #       description: looking for specific package
-    #       type: integer
-    #       format: int64
-    #       in: path
-    #       required: true
-
   /login:
     x-swagger-router-controller: login
     post:
@@ -455,16 +344,6 @@ paths:
           description: Error
           schema:
             $ref: "#/definitions/ErrorResponse"
-
-    #   responses:
-    #     "200":
-    #       description: Success
-    #       schema:
-    #         $ref: "#/definitions/PackageDetail"
-    #     default:
-    #       description: Error
-    #       schema:
-    #         $ref: "#/definitions/ErrorResponse"
 
 
   /swagger:

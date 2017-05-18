@@ -13,6 +13,7 @@ let yelp = new Yelp({
 
 //Get all the related restaurants, hotels, flights information for given user
 function GetAllPackagePerUser(req, res, err) {
+    console.log('getting all the user');
   return knex('users')
     .join('user_packages', 'users.id', 'user_packages.user_id')
     .join('flight_package', 'flight_package.package_id', 'user_packages.id')
@@ -27,7 +28,6 @@ function GetAllPackagePerUser(req, res, err) {
     .where('users.id', req.swagger.params.id.value)
     .returning('*')
     .then((result) => {
-      console.log('what is result', result);
       if (result) {
         res.set('Content-Type', 'application/json');
         res.status(200).send(result);
@@ -44,6 +44,7 @@ function GetAllPackagePerUser(req, res, err) {
 
 //post an package with the specific hotel, restaurant, and flight
 function PostUniquePackagePerUser(req, res) {
+
   let current_city = req.body.departure_airport_name;
   let destination_city = req.body.destination_airport_name;
   let date = req.body.departure_date;

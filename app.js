@@ -20,8 +20,8 @@ const verify = require('./api/controllers/validation.js');
 var config = {
   appRoot: __dirname // required config
 };
-
-// app.use('/flight', verify.middlewareVerify);
+// console.log('what is middlewareVerify,', verify.middlewareVerify);
+app.get('/users/:id/packages', verify.middlewareVerify);
 
 SwaggerExpress.create(config, function(err, swaggerExpress) {
   if (err) {
