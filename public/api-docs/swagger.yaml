@@ -1,7 +1,7 @@
 swagger: "2.0"
 info:
   version: "0.0.1"
-  title: PackaVacay
+  title: Travel-Package-Manager
 # during dev, should point to your local machine
 host: travel-package-project.herokuapp.com
 # basePath prefixes all resource paths

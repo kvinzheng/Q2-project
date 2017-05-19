@@ -2,7 +2,7 @@
 
 process.env.NODE_ENV = 'test';
 // const { suite, test } = require('mocha');
-const {describe,it} = require('mocha');
+// const {describe,it} = require('mocha');
 const request = require('supertest');
 const knex = require('../../../knex.js');
 const app = require('../../../app.js');
@@ -167,12 +167,12 @@ describe('flight routes', () => {
         if (err) return done(err);
         expect(res.body).to.deep.equal({
           id: 2,
-          airline: "Singapore Airlines",
-          cost: 310,
-          destination_city: "airport: SIN, City: Singapore Changi",
-          departure_city: "airport: SFO, City: San Francisco International",
-          departure_date: "2017-05-09T00:00:00",
-          arrival_date: "2017-05-11T00:00:00"
+          "airline": "Porter Airlines",
+          arrival_date: "2017-06-17T00:00:00",
+          cost: 163,
+          departure_city: "airport: BOS, City: Boston Logan International",
+          departure_date: "2017-06-13T00:00:00",
+          destination_city: "airport: YTZ, City: Toronto Island"
         })
         done();
       });
