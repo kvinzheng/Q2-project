@@ -13,14 +13,15 @@ Travel Package Manager is an API built with Swagger framework which provide an v
 # Getting Started
 1. Fork and clone repo.
 2. `npm install`
-3. Please register for
-4. Please register for [Yelp Oauth Tokens](`https://www.yelp.com/developers/v3/manage_app`)
+3. Please create an JWT_KEY and put it into .env
+4. Please register for
+[Yelp Oauth Tokens](https://www.yelp.com/developers/v3/manage_app) to use the Yelp functionbility. PUT the CONSUMER_KEY, CONSUMER_SECRET, TOKEN, AND TOKEN_SECRET INTO .env
 ```
 JWT_KEY=xxxxx
-OAUTH_CONSUMER_KEY= xxxxx
-OAUTH_CONSUMER_SECRET= xxxxx
-OAUTH_TOKEN= xxxxx
-OAUTH_TOKEN_SECRET= xxxxx
+CONSUMER_KEY= xxxxx
+CONSUMER_SECRET= xxxxx
+TOKEN= xxxxx
+TOKEN_SECRET= xxxxx
 ```
 5. `createdb PackaVacay_dev` To create local development database.
 6. `createdb PackaVacay_test` To Create local testing database.
