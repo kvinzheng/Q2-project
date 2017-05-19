@@ -7,16 +7,24 @@ process.env.NODE_ENV = 'test';
 const { expect, assert } = require('chai');
 const knex = require('../../knex');
 
-describe('restaurants migrations process', () => {
-  before((done) => {
-    knex.migrate.latest()
-      .then(() => {
-        done();
-      })
-      .catch((err) => {
-        done(err);
-      });
+beforeEach( done => {
+  knex.migrate.latest()
+  .then(() => {
+      done();
+    })
+  .catch((err) => {
+    done(err);
   });
+});
+
+afterEach( done => {
+  knex.migrate.rollback()
+  .then(() => {
+    done();
+  });
+});
+
+describe('restaurants migrations process', () => {
 
   it('restaurants columns', (done) => {
     knex('restaurants').columnInfo()
@@ -50,7 +58,7 @@ describe('restaurants migrations process', () => {
             defaultValue: '\'\'::character varying'
           },
 
-          review: {
+          view_count: {
             type: 'real',
             maxLength: null,
             nullable: false,

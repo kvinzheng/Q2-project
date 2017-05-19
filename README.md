@@ -28,5 +28,12 @@ OAUTH_TOKEN_SECRET= xxxxx
 8. `knex migrate:latest` Add tables to the db.
 9. `knex seed:run` Add the seeds to the db.
 10. `swagger project edit` To run it locally in development mode.
-11. Have fun!
+11. `swagger project start` To Turn on swagger
 
+Testing:
+1. To test the routes, run `mocha test/api/controllers`
+2. To test the migrations, run `mocha test/migrations`
+
+Entity Relationship Diagrams
+------------------------------------------------------
+![](https://postimg.org/image/jezqwq68z/)
