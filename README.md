@@ -34,8 +34,7 @@ OAUTH_TOKEN_SECRET= xxxxx
 1. To test the routes, run `mocha test/api/controllers`
 2. To test the migrations, run `mocha test/migrations`
 
-## Our Technologies
--------------------------------------------------------------------
+# Our Technologies
  We are using:
    * Swagger
    * express
@@ -46,8 +45,7 @@ OAUTH_TOKEN_SECRET= xxxxx
    * bcrypt
    * humps
 
-## Feature list
----------------------------------------------------------------------
+# Feature list
   * Sign-Up: Creation of a user account
   * Sign-In: token, hashed password, validation(using token)
   * Get: users get a combination of favorite hotel, restaurant and flight
@@ -60,5 +58,4 @@ OAUTH_TOKEN_SECRET= xxxxx
 
 
 # Entity Relationship Diagrams
-------------------------------------------------------
 ![](https://s21.postimg.org/w6dx38g13/Relational_Database.png)
