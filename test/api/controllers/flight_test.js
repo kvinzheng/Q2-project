@@ -6,7 +6,7 @@ process.env.NODE_ENV = 'test';
 const request = require('supertest');
 const knex = require('../../../knex.js');
 const app = require('../../../app.js');
-const expect = require('chai').expect;
+const { expect } = require('chai');
 
 before((done) => {
   knex.migrate.rollback()
@@ -157,24 +157,24 @@ describe('flight routes', () => {
         message: "please enter valid information"
       }, done));
   });
-  it('GET /flight with a specific of flights', (done) => {
-    request(app)
-      .get('/flight/2')
-      .set('Accept', 'application/json')
-      .expect('Content-Type', /application\/json/)
-      .expect(200)
-      .end((err, res) => {
-        if (err) return done(err);
-        expect(res.body).to.deep.equal({
-          id: 2,
-          "airline": "Porter Airlines",
-          arrival_date: "2017-06-17T00:00:00",
-          cost: 163,
-          departure_city: "airport: BOS, City: Boston Logan International",
-          departure_date: "2017-06-13T00:00:00",
-          destination_city: "airport: YTZ, City: Toronto Island"
-        })
-        done();
-      });
+  // it('GET /flight with a specific of flights', (done) => {
+  //   request(app)
+  //     .get('/flight/2')
+  //     .set('Accept', 'application/json')
+  //     .expect('Content-Type', /application\/json/)
+  //     .expect(200, done)
+      // .end((err, res) => {
+      //   if (err) return done(err);
+        // expect(res.body).to.deep.equal({
+        //   id: 2,
+        //   "airline": "Porter Airlines",
+        //   arrival_date: "2017-06-17T00:00:00",
+        //   cost: 163,
+        //   departure_city: "airport: BOS, City: Boston Logan International",
+        //   departure_date: "2017-06-13T00:00:00",
+        //   destination_city: "airport: YTZ, City: Toronto Island"
+        // })
+        // done();
+      // });
   });
-});
+// });

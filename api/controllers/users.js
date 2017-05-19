@@ -3,6 +3,9 @@ var util = require('util');
 const knex = require('../../knex.js');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config();
+}
 //Return an object with all the user information
 function GetAllUsers(req, res) {
   return knex('users')

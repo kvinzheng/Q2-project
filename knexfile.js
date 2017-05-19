@@ -3,12 +3,20 @@ module.exports = {
     client: 'pg',
     connection: 'postgres://localhost/PackaVacay_dev'
   },
+
+  test: {
+    client: 'pg',
+    connection: 'postgres://localhost/PackaVacay_test',
+    migrations: {
+      directory: __dirname + '/migrations'
+    },
+    seeds: {
+      directory: __dirname + '/seeds'
+    }
+  },
+
   production: {
     client: 'pg',
     connection: process.env.DATABASE_URL
-  },
-  test: {
-    client: 'pg',
-    connection: 'postgres://localhost/PackaVacay_test'
   }
 };

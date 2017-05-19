@@ -2,11 +2,12 @@
 
 process.env.NODE_ENV = 'test';
 
-const assert = require('chai').assert;
-const { suite, test } = require('mocha');
+// const assert = require('chai').assert;
+// const { suite, test } = require('mocha');
+const { expect, assert } = require('chai');
 const knex = require('../../knex');
 
-suite('flights migrations', () => {
+describe('flights migrations', () => {
   before((done) => {
     knex.migrate.latest()
       .then(() => {
@@ -17,7 +18,7 @@ suite('flights migrations', () => {
       });
   });
 
-  test('flights columns', (done) => {
+  it('flights columns', (done) => {
     knex('flights').columnInfo()
       .then((actual) => {
         const expected = {

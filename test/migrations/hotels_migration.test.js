@@ -2,22 +2,29 @@
 
 process.env.NODE_ENV = 'test';
 
-const assert = require('chai').assert;
-const { suite, test } = require('mocha');
+const { expect, assert } = require('chai');
 const knex = require('../../knex');
 
-suite('hotels migrations', () => {
-  before((done) => {
-    knex.migrate.latest()
-      .then(() => {
-        done();
-      })
-      .catch((err) => {
-        done(err);
-      });
+beforeEach( done => {
+  knex.migrate.latest()
+  .then(() => {
+      done();
+    })
+  .catch((err) => {
+    done(err);
   });
+});
 
-  test('hotels columns', (done) => {
+afterEach( done => {
+  knex.migrate.rollback()
+  .then(() => {
+    done();
+  });
+});
+
+describe('hotel migratons', () => {
+
+  it('testing hotels columns', (done) => {
     knex('hotels').columnInfo()
       .then((actual) => {
         const expected = {

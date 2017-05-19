@@ -7,12 +7,10 @@ function middlewareVerify(req, res, next) {
   console.log('what is req.headers', req.headers);
   jwt.verify(req.headers.token, process.env.JWT_KEY, (err, payload) => {
     if (err) {
-      // console.log(err);
       res.status(401);
       res.send({status: 401, ErrorMessage: 'Unauthorized'});
       next()
     } else {
-      console.log('pass!');
       tokenId = payload.userId;
 
       next();

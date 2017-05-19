@@ -31,7 +31,6 @@ function userLogin(req, res) {
         .then((match) => {
             if (match === false) {
                 res.status(400).send('Invalid username or password');
-                console.log('am i here');
             } else if (match === true) {
                 const claim = {
                     userId: authUser.id

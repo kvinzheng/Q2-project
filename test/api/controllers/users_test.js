@@ -1,10 +1,11 @@
 'use strict';
 process.env.NODE_ENV = 'test';
-const {describe,it} = require('mocha');
+// const {describe,it} = require('mocha');
+const { expect } = require('chai');
 const request = require('supertest');
 const knex = require('../../../knex.js');
 const app = require('../../../app.js');
-const expect = require('chai').expect;
+// const expect = require('chai').expect;
 
 beforeEach((done) => {
   knex.migrate.rollback()
@@ -89,17 +90,12 @@ describe('users routes', () => {
       .set('Content-Type', 'application/json')
       .send({
         username: 'KillaKev',
-        password: 'NiceLA',
+        password: 'nicesf',
         first_name: 'Kevin',
         last_name:  'Lam',
       })
       .expect('Content-Type', /json/)
-      .expect(200,{
-        id: 7,
-        username: 'KillaKev',
-        first_name: 'Kevin',
-        last_name:  'Lam',
-      },done)
+      .expect(200,done)
   });
   it('GET /users/:id', (done) => {
     request(app)

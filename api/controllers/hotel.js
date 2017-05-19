@@ -9,7 +9,6 @@ const fetch = require('node-fetch');
 function GetAllHotel(req, res) {
   return knex('hotels')
   .then((hotels) => {
-    console.log(hotels);
     res.send(hotels);
   })
   .catch((err) => {

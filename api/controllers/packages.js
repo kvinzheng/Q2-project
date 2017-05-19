@@ -13,7 +13,6 @@ let yelp = new Yelp({
 
 //Get all the related restaurants, hotels, flights information for given user
 function GetAllPackagePerUser(req, res, err) {
-    console.log('getting all the user');
   return knex('users')
     .join('user_packages', 'users.id', 'user_packages.user_id')
     .join('flight_package', 'flight_package.package_id', 'user_packages.id')

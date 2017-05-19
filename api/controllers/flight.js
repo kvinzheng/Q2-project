@@ -64,6 +64,7 @@ function GetFlight(req, res) {
     return response.json();
   }).then((realRes) => {
     let finalArray = [];
+    console.log('what is realRes["Quotes"]', realRes["Quotes"]);
     realRes["Quotes"].forEach((ele) => {
       let result = {};
       let Airline = realRes["Carriers"].filter((flight) => {

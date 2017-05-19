@@ -2,11 +2,11 @@
 
 process.env.NODE_ENV = 'test';
 // const { suite, test } = require('mocha');
-const {describe,it} = require('mocha');
+// const {describe,it} = require('mocha');
 const request = require('supertest');
 const knex = require('../../../knex.js');
 const app = require('../../../app.js');
-const expect = require('chai').expect;
+const { expect } = require('chai');
 
 beforeEach((done) => {
   knex.migrate.rollback()
