@@ -2,7 +2,7 @@
 
 For full documentation of the Travel Package API please visit:http://travel-package-project.herokuapp.com/api-docs/
 
-Travel Package Manager is an api that allows users to store their favorite choices of hotels, flights and restaurants.
+Travel Package Manager is an api that allows travelers to store their favorite choices of hotels, flights and restaurants.
 
 * Everyone can search for a flights/restaurants/hotels. logged in users can create an account and add their favorite travel package to the database
 * Only logged in users/authenticated can view their own favorite choices of vacation packages.
