@@ -64,23 +64,4 @@ describe('package routes', () => {
       .expect('Content-Type', /application\/json/)
       .expect(404, JSON.stringify({code:404, message: "please enter valid information"}, done));
     });
-  // it('GET /users/{id}/package{id}', (done) => {
-  //     request(app)
-  //         .get('/users/2/packages/2')
-  //         .set('Accept', 'application/json')
-  //         .expect('Content-Type', /application\/json/)
-  //         .expect(200)
-  //         .expect({
-  //           package_id: 2,
-  //           user_id: 2,
-  //           airline: 'SouthWest',
-  //           flight_id: 2,
-  //           flight_cost: 450,
-  //           restaurant_name: 'Red Lobster',
-  //           restaurant_id: 2,
-  //           restaurants_cost: 50,
-  //           hotels_name: 'Holiday Inn',
-  //           hotels_id: 2,
-  //           hotels_cost: 150 }, done)
-  // })
 })

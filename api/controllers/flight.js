@@ -6,9 +6,11 @@ const bcrypt = require('bcrypt');
 const request = require('request');
 const fetch = require('node-fetch');
 
+ // comment here
 function GetAllFlight(req, res) {
-
-  fetch("http://partners.api.skyscanner.net/apiservices/browseroutes/v1.0/US/USD/en-US/us/anywhere/anytime/anytime?apikey=" + process.env.FLIGHTAPI)
+  // add comment here
+  // use the below syntax 
+  fetch(`http://partners.api.skyscanner.net/apiservices/browseroutes/v1.0/US/USD/en-US/us/anywhere/anytime/anytime?apikey=${process.env.FLIGHTAPI}`)
     .then((response) => {
       return response.json();
     })
@@ -23,6 +25,7 @@ function GetAllFlight(req, res) {
         if (Airline === undefined) {
           Airline = 'ID_Missing'
         }
+        // add comment here
 
         Airline = Airline['Name'];
         let departureLocation = realRes['Places'].filter((place) => {
@@ -33,7 +36,8 @@ function GetAllFlight(req, res) {
         let destinationLocation = realRes['Places'].filter((place) => {
           return place.PlaceId === ele['OutboundLeg']['DestinationId']
         })[0];
-
+        
+        // add comment here
         let destinationCity = 'airport: ' +
           destinationLocation.SkyscannerCode + ', City: ' +
           destinationLocation.Name;
@@ -67,6 +71,7 @@ function GetAllFlight(req, res) {
     })
 }
 
+// comment here
 function GetFlight(req, res) {
   return knex('flights')
     .where('id', req.swagger.params.id.value)

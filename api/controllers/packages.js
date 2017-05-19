@@ -1,6 +1,6 @@
 'use strict';
-var util = require('util');
-var knex = require('../../knex.js')
+var util = require('util'); // use const here. 
+var knex = require('../../knex.js') // use const here. 
 const fetch = require('node-fetch');
 const Yelp = require('yelp')
 let yelp = new Yelp({
@@ -40,14 +40,16 @@ function GetAllPackagePerUser(req, res, err) {
 }
 
 function PostUniquePackagePerUser(req, res) {
-  let current_city = req.body.departure_airport_name;
-  let destination_city = req.body.destination_airport_name;
-  let date = req.body.departure_date;
-  let budget = req.body.budget;
+  let current_city = req.body.departure_airport_name; // use const here.  
+  let destination_city = req.body.destination_airport_name; // use const here.
+  let date = req.body.departure_date; // use const here.
+  let budget = req.body.budget; // use const here.
   let flight_cost;
   let airline;
   let carrierId;
-  let user_id = req.swagger.params.id.value;
+  let user_id = req.swagger.params.id.value; // use const here.
+  
+  // add comments here. 
   fetch(`http://partners.api.skyscanner.net/apiservices/browsequotes/v1.0/US/USD/en-US/${current_city}/${destination_city}/${date}/${date}?apikey=${process.env.FLIGHTAPI}`)
     .then((response) => {
       return response.json();
@@ -64,12 +66,14 @@ function PostUniquePackagePerUser(req, res) {
       return jayson
     })
     .then((response) => {
+      // add comments here about what your intention is here. 
       return knex('user_packages')
         .insert({
           budget: budget,
           user_id
         }, 'id')
         .then((package_id) => {
+          // add comments here about what your intention is here. 
           return knex('flights')
             .insert({
               airline: airline.Name,
@@ -80,12 +84,14 @@ function PostUniquePackagePerUser(req, res) {
               cost: flight_cost
             }, 'id')
             .then((flight_id) => {
+              // add comments here about what your intention is here. 
               return knex('flight_package')
                 .insert({
                   flight_id: flight_id[0],
                   package_id: package_id[0]
                 }, 'package_id')
                 .then((package_id) => {
+                  // add comments here about what your intention is here. 
                   yelp.search({
                       term: 'food',
                       location: destination_city,
@@ -93,7 +99,8 @@ function PostUniquePackagePerUser(req, res) {
                       rating: 4
                     })
                     .then((response) => {
-                      let restaurant = response.businesses[0]
+                       // add comments here about what your intention is here. 
+                      let restaurant = response.businesses[0] // const not let. 
                       return knex('restaurants')
                         .insert({
                           name: restaurant.name,
@@ -114,6 +121,7 @@ function PostUniquePackagePerUser(req, res) {
                                   package_id: package_id[0]
                                 })
                                 .then((response) => {
+                                  // add comments here about what your intention is here. 
                                   res.send({
                                     user_id,
                                     package_id: package_id[0],
@@ -141,35 +149,6 @@ function PostUniquePackagePerUser(req, res) {
     })
 }
 
-// function GetUniquePackageUniqueUser(req, res, err) {
-//   return knex.from('users')
-//     .innerJoin('user_packages', 'users.id', 'user_packages.id')
-//     .join('flight_package', 'flight_package.package_id', 'user_packages.id')
-//     .join('flights', 'flights.id', 'flight_package.flight_id')
-//     .join('hotel_package', 'hotel_package.package_id', 'user_packages.id')
-//     .join('hotels', 'hotels.id', ' hotel_package.package_id')
-//     .join('restaurant_package', 'restaurant_package.package_id', 'user_packages.id')
-//     .join('restaurants', 'restaurants.id', 'restaurant_package.restaurant_id')
-//     .select('user_packages.id as package_id', 'users.id as user_id', 'airline', 'flights.id as flight_id', 'flights.cost as flight_cost', 'restaurants.name as restaurant_name', 'restaurants.id as restaurant_id',
-//       'restaurants.cost as restaurants_cost', 'hotels.name as hotels_name', 'hotels.id as hotels_id', 'hotels.cost as hotels_cost')
-//     .where('user_packages.id', req.swagger.params.package_id.value)
-//     .andWhere('user_id', req.swagger.params.user_id.value)
-//     .returning('*')
-//     .then((result) => {
-//       if (result) {
-//         console.log('what is result, kevin', result);
-//         res.set('Content-Type', 'application/json');
-//         res.send(result);
-//       } else {
-//         res.status(400);
-//         res.send('this is not a valid input');
-//         throw new Error("this end point doesn't exist");
-//       }
-//     })
-//     .catch((err) => {
-//       console.error(err);
-//     })
-// }
 
 module.exports = {
   GetAllPackagePerUser: GetAllPackagePerUser,
