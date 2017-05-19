@@ -78,7 +78,6 @@ describe('hotel migratons', () => {
             `Column ${column} is not the same`
           );
         }
-
         done();
       })
       .catch((err) => {

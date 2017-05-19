@@ -2,7 +2,6 @@
 
 process.env.NODE_ENV = 'test';
 
-// const { suite, test } = require('mocha');
 const { expect } = require('chai');
 const request = require('supertest');
 const knex = require('../../../knex');
@@ -17,7 +16,7 @@ describe('hotels routes', () => {
       .catch((err) => {
         done(err);
       });
-  });
+});
 
   beforeEach((done) => {
     knex.seed.run()

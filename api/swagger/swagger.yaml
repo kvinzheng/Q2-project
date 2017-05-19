@@ -166,7 +166,7 @@ paths:
           description: Error
           schema:
             $ref: "#/definitions/ErrorResponse"
-
+  
     post:
       description: To register an new account, user needs to enter first_name, last_name, username, password and a unique token. The response object would includes an token for authentication purpose
       operationId: AddUser

@@ -1,11 +1,10 @@
 'use strict';
 process.env.NODE_ENV = 'test';
-// const {describe,it} = require('mocha');
+
 const { expect } = require('chai');
 const request = require('supertest');
 const knex = require('../../../knex.js');
 const app = require('../../../app.js');
-// const expect = require('chai').expect;
 
 beforeEach((done) => {
   knex.migrate.rollback()
@@ -34,7 +33,6 @@ beforeEach((done) => {
       done(err);
     });
 })
-
 
 describe('users routes', () => {
   it('GET users/', (done) => {

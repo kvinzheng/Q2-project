@@ -2,8 +2,6 @@
 
 process.env.NODE_ENV = 'test';
 
-// const assert = require('chai').assert;
-// const { suite, test } = require('mocha');
 const { expect, assert } = require('chai');
 const knex = require('../../knex');
 

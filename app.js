@@ -20,7 +20,8 @@ const verify = require('./api/controllers/validation.js');
 var config = {
   appRoot: __dirname // required config
 };
-// console.log('what is middlewareVerify,', verify.middlewareVerify);
+
+//applying middleware to get user package route
 app.get('/users/:id/packages', verify.middlewareVerify);
 
 SwaggerExpress.create(config, function(err, swaggerExpress) {
@@ -36,9 +37,6 @@ SwaggerExpress.create(config, function(err, swaggerExpress) {
     console.log('listening on port ' + port);
   });
 
-  // if (swaggerExpress.runner.swagger.paths['/hello']) {
-  //   console.log('try this:\ncurl http://127.0.0.1:' + port + '/hello?name=Scott');
-  // }
 });
 
 module.exports = app; // for testing
