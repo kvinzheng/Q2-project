@@ -9,7 +9,7 @@ const fetch = require('node-fetch');
 //Get All the flights with input city and date
 function GetAllFlight(req, res) {
   //making an AJAX request to outside third party API called skyscanner and receive real time flight data
-  fetch("http://partners.api.skyscanner.net/apiservices/browseroutes/v1.0/US/USD/en-US/us/anywhere/anytime/anytime?apikey=" + process.env.FLIGHTAPI).then((response) => {
+  fetch(`http://partners.api.skyscanner.net/apiservices/browseroutes/v1.0/US/USD/en-US/us/anywhere/anytime/anytime?apikey=${ process.env.FLIGHTAPI}`).then((response) => {
     return response.json();
   }).then((realRes) => {
     let finalArray = [];
@@ -18,11 +18,12 @@ function GetAllFlight(req, res) {
       let Airline = realRes["Carriers"].filter((flight) => {
         return flight.CarrierId === ele.OutboundLeg["CarrierIds"][0]
       })[0];
-
+      //if flight Id is missing , i call it ID_Missing
       if (Airline === undefined) {
         Airline = 'ID_Missing'
       }
-
+      //Filtering the API information to return an object that only includes
+      //airline, cost, destination_city, departure_date, arrival_date
       Airline = Airline['Name'];
       let departureLocation = realRes['Places'].filter((place) => {
         return place.PlaceId === ele['OutboundLeg']['OriginId']
@@ -32,6 +33,7 @@ function GetAllFlight(req, res) {
         return place.PlaceId === ele['OutboundLeg']['DestinationId']
       })[0];
 
+      //using information from the API and making it into destinationCity
       let destinationCity = 'airport: ' + destinationLocation.SkyscannerCode + ', City: ' + destinationLocation.Name;
       let QuoteId = ele.QuoteId;
       result.id = parseInt(QuoteId);
@@ -60,7 +62,7 @@ function GetAllFlight(req, res) {
 //get a specific flight data with the specific flight id
 function GetFlight(req, res) {
   //making an AJAX request to outside third party API called skyscanner and receive real time flight data
-  fetch("http://partners.api.skyscanner.net/apiservices/browseroutes/v1.0/US/USD/en-US/us/anywhere/anytime/anytime?apikey=" + process.env.FLIGHTAPI).then((response) => {
+  fetch(`http://partners.api.skyscanner.net/apiservices/browseroutes/v1.0/US/USD/en-US/us/anywhere/anytime/anytime?apikey=${ process.env.FLIGHTAPI}`).then((response) => {
     return response.json();
   }).then((realRes) => {
     let finalArray = [];
