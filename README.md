@@ -36,4 +36,4 @@ Testing:
 
 Entity Relationship Diagrams
 ------------------------------------------------------
-![](https://postimg.org/image/jezqwq68z/)
+![](https://s21.postimg.org/w6dx38g13/Relational_Database.png)
